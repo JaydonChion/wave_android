@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1045980237193",
+    "firebase_url": "https://wave-now-co.firebaseio.com",
+    "project_id": "wave-now-co",
+    "storage_bucket": "wave-now-co.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1045980237193:android:468979f0b1d69c35",
+        "android_client_info": {
+          "package_name": "letswave.co.in.wave"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1045980237193-j7ve35paeidhf743gagans7oqdvcfk4h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "letswave.co.in.wave",
+            "certificate_hash": "77685ebe24b439996e62339da8fd22f79b9e06a3"
+          }
+        },
+        {
+          "client_id": "1045980237193-o2nitn6r7oegc75gtc0datp5m14sul3i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAysi1WI3p3A89DN2TtZ4VpwhBuCuyAf9o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1045980237193-o2nitn6r7oegc75gtc0datp5m14sul3i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

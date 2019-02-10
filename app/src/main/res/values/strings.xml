@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Wave</string>
+    <string name="sign_in_title">Going to places with Wave</string>
+    <string name="sign_in_subtitle">We make it simple for you to go to places and to perform your daily tasks seamlessly.</string>
+    <string name="email_address">EMAIL ADDRESS</string>
+    <string name="password">PASSWORD</string>
+    <string name="new_here">New here?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
