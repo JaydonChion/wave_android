@@ -12,9 +12,10 @@
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.CardView
-            app:cardUseCompatPadding="true"
             app:cardBackgroundColor="@android:color/white"
             app:cardCornerRadius="32dp"
+            android:layout_margin="8dp"
+            app:cardElevation="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
@@ -46,6 +47,7 @@
                             android:id="@+id/servicesCardUserNameTextView"
                             android:text="User Name"
                             android:textSize="16sp"
+                            android:fontFamily="@font/helvetica_bold"
                             android:textColor="@android:color/black"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -53,12 +55,13 @@
                             android:id="@+id/servicesCardMatricTextView"
                             android:textSize="14sp"
                             android:text="Student Matric"
+                            android:fontFamily="@font/helvetica_light"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:id="@+id/servicesCardEmailTextView"
-                            android:fontFamily="sans-serif-light"
                             android:textSize="14sp"
+                            android:fontFamily="@font/helvetica_light"
                             android:text="email@address.com"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -73,7 +76,6 @@
 
                 <ImageView
                     android:id="@+id/servicesCardQRCodeImageView"
-                    android:scaleType="centerCrop"
                     android:layout_width="180dp"
                     android:layout_height="180dp" />
 
@@ -104,7 +106,7 @@
             app:contentPadding="10dp"
             app:cardCornerRadius="16dp"
             app:cardUseCompatPadding="true"
-            android:alpha="0.85"
+            android:alpha="0.70"
             app:cardBackgroundColor="@color/colorAccent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -116,7 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:src="@drawable/sleeping_bag"
+                    android:src="@drawable/key_card"
                     android:tint="@android:color/white"
                     android:layout_width="48dp"
                     android:layout_height="48dp" />
@@ -124,6 +126,7 @@
                     android:layout_margin="16dp"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
+                    android:fontFamily="@font/helvetica_bold"
                     android:text="Card Reader Access"
                     android:layout_weight="1"
                     android:layout_width="0dp"
@@ -139,7 +142,7 @@
             app:contentPadding="10dp"
             app:cardCornerRadius="16dp"
             app:cardUseCompatPadding="true"
-            android:alpha="0.85"
+            android:alpha="0.70"
             app:cardBackgroundColor="@color/colorAccent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -160,6 +163,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
                     android:text="Library Fines"
+                    android:fontFamily="@font/helvetica_bold"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content" />
@@ -174,7 +178,7 @@
             app:contentPadding="10dp"
             app:cardCornerRadius="16dp"
             app:cardUseCompatPadding="true"
-            android:alpha="0.85"
+            android:alpha="0.70"
             app:cardBackgroundColor="@color/colorAccent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -195,6 +199,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
                     android:text="Sleeping Pod"
+                    android:fontFamily="@font/helvetica_bold"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content" />

@@ -91,7 +91,7 @@ public class ServicesFragment extends Fragment {
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
-            if (bitmap!=null) Glide.with(rootView.getContext()).load(bitmap).into(servicesCardBarCodeImageView);
+            if (bitmap!=null && servicesCardBarCodeImageView!=null) Glide.with(rootView.getContext()).load(bitmap).into(servicesCardBarCodeImageView);
         }
     }
 
@@ -110,7 +110,7 @@ public class ServicesFragment extends Fragment {
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
-            if (bitmap!=null) Glide.with(rootView.getContext()).load(bitmap).into(servicesCardQRCodeImageView);
+            if (bitmap!=null && servicesCardQRCodeImageView!=null) Glide.with(rootView.getContext()).load(bitmap).into(servicesCardQRCodeImageView);
         }
     }
 
