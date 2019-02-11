@@ -1,5 +1,6 @@
 package letswave.co.in.wave.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +12,11 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import letswave.co.in.wave.R;
 
@@ -54,6 +58,21 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void initializeComponents() {
         firebaseAuth = FirebaseAuth.getInstance();
+    }
+
+    @OnClick(R.id.signUpNextButton)
+    public void onSignUpNextButtonPress() {
+        String name = Objects.requireNonNull(signUpNameEditText.getText()).toString();
+        String email = Objects.requireNonNull(signUpEmailEditText.getText()).toString();
+        String matric = Objects.requireNonNull(signUpMatricEditText.getText()).toString();
+        String password = Objects.requireNonNull(signUpPasswordEditText.getText()).toString();
+        String confirmPassword = Objects.requireNonNull(signUpConfirmPasswordEditText.getText()).toString();
+        Intent phoneIntent = new Intent(SignUpActivity.this, PhoneNumberActivity.class);
+        phoneIntent.putExtra("NAME", name);
+        phoneIntent.putExtra("EMAIL", email);
+        phoneIntent.putExtra("MATRIC", matric);
+        phoneIntent.putExtra("PASSWORD", password);
+        startActivity(phoneIntent);
     }
 
     @Override
