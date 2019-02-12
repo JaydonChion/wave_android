@@ -102,12 +102,6 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        unbinder.unbind();
-        super.onDestroy();
-    }
-
-    @Override
     public void onDestroyView() {
         unbinder.unbind();
         super.onDestroyView();

@@ -122,7 +122,6 @@ public class ServicesFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        unbinder.unbind();
         super.onDestroy();
     }
 
