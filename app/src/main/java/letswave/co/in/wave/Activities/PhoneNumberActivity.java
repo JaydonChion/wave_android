@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.FirebaseException;
@@ -127,21 +126,18 @@ public class PhoneNumberActivity extends AppCompatActivity {
             String requestUrl = domainUrl+"/users/update/phone/"+firebaseAuth.getUid();
             JSONObject updateJsonObject = new JSONObject();
             updateJsonObject.put("phone", phoneNumber);
-            JsonObjectRequest updatePhoneNumberRequest = new JsonObjectRequest(Request.Method.PUT, requestUrl, updateJsonObject, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        int affectedRows = response.getInt("affectedRows");
-                        if (affectedRows==1) {
-                            currentUser.setPhone(phoneNumber);
-                            Intent mainActivityIntent = new Intent(PhoneNumberActivity.this, MainActivity.class);
-                            mainActivityIntent.putExtra("USER", currentUser);
-                            startActivity(mainActivityIntent);
-                            finish();
-                        }
-                    } catch (JSONException e) {
-                        notifyMessage(e.getMessage());
+            JsonObjectRequest updatePhoneNumberRequest = new JsonObjectRequest(Request.Method.PUT, requestUrl, updateJsonObject, response -> {
+                try {
+                    int affectedRows = response.getInt("affectedRows");
+                    if (affectedRows==1) {
+                        currentUser.setPhone(phoneNumber);
+                        Intent mainActivityIntent = new Intent(PhoneNumberActivity.this, MainActivity.class);
+                        mainActivityIntent.putExtra("USER", currentUser);
+                        startActivity(mainActivityIntent);
+                        finish();
                     }
+                } catch (JSONException e) {
+                    notifyMessage(e.getMessage());
                 }
             }, error -> notifyMessage(error.getMessage()));
             requestQueue.add(updatePhoneNumberRequest);

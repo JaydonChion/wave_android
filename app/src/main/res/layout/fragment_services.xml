@@ -55,13 +55,13 @@
                             android:id="@+id/servicesCardMatricTextView"
                             android:textSize="14sp"
                             android:text="Student Matric"
-                            android:fontFamily="@font/helvetica_light"
+                            android:fontFamily="@font/helvetica_bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:id="@+id/servicesCardEmailTextView"
                             android:textSize="14sp"
-                            android:fontFamily="@font/helvetica_light"
+                            android:fontFamily="@font/helvetica_bold"
                             android:text="email@address.com"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />

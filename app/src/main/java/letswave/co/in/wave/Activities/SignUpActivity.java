@@ -28,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import letswave.co.in.wave.Models.User;
 import letswave.co.in.wave.R;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -120,8 +121,10 @@ public class SignUpActivity extends AppCompatActivity {
                     int affectedRows = response.getInt("affectedRows");
                     if (affectedRows==1) {
                         notifyMessage("New Account created.");
-                        startActivity(new Intent(SignUpActivity.this, PhoneNumberActivity.class));
-                        finish();
+                        User user = new User(firebaseAuth.getCurrentUser().getUid(), "Nanyang Technological University", matric, name, email, null, null);
+                        Intent phoneNumberActivityIntent = new Intent(SignUpActivity.this, MainActivity.class);
+                        phoneNumberActivityIntent.putExtra("USER", user);
+                        startActivity(phoneNumberActivityIntent);
                     }
                 } catch (JSONException e) {
                     notifyMessage(e.getMessage());

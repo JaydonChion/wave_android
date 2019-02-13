@@ -2,9 +2,11 @@ package letswave.co.in.wave.Fragments;
 
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +15,20 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
+import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
+import letswave.co.in.wave.Activities.MainActivity;
 import letswave.co.in.wave.Activities.SignInActivity;
+import letswave.co.in.wave.Models.User;
 import letswave.co.in.wave.R;
 
 /**
@@ -50,10 +56,13 @@ public class ProfileFragment extends Fragment {
     Spinner profileSchoolSpinner;
     @BindView(R.id.profileSignOutTextView)
     TextView profileSignOutTextView;
+    @BindDrawable(R.drawable.user_placeholder)
+    Drawable userPlaceholderDrawable;
 
     private View rootView;
     private Unbinder unbinder;
     private FirebaseAuth firebaseAuth;
+    private User currentUser;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -99,6 +108,13 @@ public class ProfileFragment extends Fragment {
     public void onStart() {
         super.onStart();
         unbinder = ButterKnife.bind(ProfileFragment.this, rootView);
+        currentUser = ((MainActivity) Objects.requireNonNull(getActivity())).getCurrentUser();
+        profileNameEditText.setText(currentUser.getName());
+        profileEmailEditText.setText(currentUser.getEmail());
+        profileMatricEditText.setText(currentUser.getAuthorityIssuedId());
+        profilePhoneEditText.setText(currentUser.getPhone());
+        if (currentUser.getPhoto()==null || TextUtils.isEmpty(currentUser.getPhoto()) || currentUser.getPhoto().equals("null")) Glide.with(rootView.getContext()).load(userPlaceholderDrawable).into(profileImageView);
+        else Glide.with(rootView.getContext()).load(currentUser.getPhoto()).into(profileImageView);
     }
 
     @Override

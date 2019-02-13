@@ -1,27 +1,42 @@
 package letswave.co.in.wave.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONException;
+
+import java.util.Objects;
+
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import letswave.co.in.wave.Models.User;
 import letswave.co.in.wave.R;
 
 public class SplashActivity extends AppCompatActivity {
 
     @BindView(R.id.splashLogoImageView)
     ImageView splashLogoImageView;
+    @BindString(R.string.domain)
+    String domain;
 
+    private RequestQueue requestQueue;
     private FirebaseAuth firebaseAuth;
     private Unbinder unbinder;
     private static final int SPLASH_DELAY_LENGTH = 1000;
@@ -46,13 +61,41 @@ public class SplashActivity extends AppCompatActivity {
 
     private void initializeComponents() {
         firebaseAuth = FirebaseAuth.getInstance();
-
-        new Handler().postDelayed(() -> {
-            if (firebaseAuth.getCurrentUser() == null)
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        if (firebaseAuth.getCurrentUser()==null) {
+            new Handler().postDelayed(() -> {
                 startActivity(new Intent(SplashActivity.this, SignInActivity.class));
-            else startActivity(new Intent(SplashActivity.this, MainActivity.class));
-            finish();
-        }, SPLASH_DELAY_LENGTH);
+                finish();
+            }, SPLASH_DELAY_LENGTH);
+        } else fetchCurrentUser();
+    }
+
+    private void fetchCurrentUser() {
+        String requestUrl = domain+"/users/"+ Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+        JsonObjectRequest userObjectRequest = new JsonObjectRequest(Request.Method.GET, requestUrl, null, response -> {
+            try {
+                String name = response.getString("name");
+                String authorityName = response.getString("authority_issuer_name");
+                String authorityIssuedId = response.getString("authority_issued_id");
+                String email = response.getString("email");
+                String photo = response.getString("photo");
+                String phone = response.getString("phone");
+                User currentUser = new User(firebaseAuth.getCurrentUser().getUid(), authorityName, authorityIssuedId, name, email, photo, phone);
+                Intent mainActivityIntent = new Intent(SplashActivity.this, MainActivity.class);
+                mainActivityIntent.putExtra("USER", currentUser);
+                startActivity(mainActivityIntent);
+                finish();
+            } catch (JSONException e) {
+                Snackbar.make(splashLogoImageView, e.getMessage(), Snackbar.LENGTH_INDEFINITE)
+                        .setAction("RETRY", v -> fetchCurrentUser())
+                        .setActionTextColor(Color.YELLOW)
+                        .show();
+            }
+        }, error -> Snackbar.make(splashLogoImageView, error.getMessage(), Snackbar.LENGTH_INDEFINITE)
+                .setAction("RETRY", v -> fetchCurrentUser())
+                .setActionTextColor(Color.YELLOW)
+                .show());
+        requestQueue.add(userObjectRequest);
     }
 
     @Override

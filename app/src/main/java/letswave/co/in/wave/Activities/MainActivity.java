@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -13,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import letswave.co.in.wave.Adapters.MainViewPagerAdapter;
+import letswave.co.in.wave.Models.User;
 import letswave.co.in.wave.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,12 +29,15 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private Unbinder unbinder;
     private MainViewPagerAdapter mainViewPagerAdapter;
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        currentUser = getIntent().getParcelableExtra("USER");
+        Log.v("USER", currentUser.toString());
         initializeViews();
         initializeComponents();
     }
@@ -53,5 +58,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         unbinder.unbind();
         super.onDestroy();
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 }

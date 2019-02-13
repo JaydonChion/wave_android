@@ -3,10 +3,12 @@ package letswave.co.in.wave.Fragments;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +20,15 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import java.util.Objects;
+
+import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
+import letswave.co.in.wave.Activities.MainActivity;
+import letswave.co.in.wave.Models.User;
 import letswave.co.in.wave.R;
 
 /**
@@ -41,10 +48,13 @@ public class ServicesFragment extends Fragment {
     ImageView servicesCardBarCodeImageView;
     @BindView(R.id.servicesCardQRCodeImageView)
     ImageView servicesCardQRCodeImageView;
+    @BindDrawable(R.drawable.user_placeholder)
+    Drawable userPlaceholderDrawable;
 
     private Unbinder unbinder;
     private View rootView;
     private BarcodeEncoder barcodeEncoder;
+    private User currentUser;
 
     public ServicesFragment() {
         // Required empty public constructor
@@ -72,8 +82,6 @@ public class ServicesFragment extends Fragment {
 
     private void initializeComponents() {
         barcodeEncoder = new BarcodeEncoder();
-        new GenerateAndRenderBarCode().execute("abhishek");
-        new GenerateAndRenderQRCode().execute("abhishek");
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -118,6 +126,14 @@ public class ServicesFragment extends Fragment {
     public void onStart() {
         super.onStart();
         unbinder = ButterKnife.bind(ServicesFragment.this, rootView);
+        currentUser = ((MainActivity) Objects.requireNonNull(getActivity())).getCurrentUser();
+        new GenerateAndRenderBarCode().execute(currentUser.getAuthorityIssuedId());
+        new GenerateAndRenderQRCode().execute(currentUser.getAuthorityIssuedId());
+        servicesCardUserNameTextView.setText(currentUser.getName());
+        servicesCardMatricTextView.setText(currentUser.getAuthorityIssuedId());
+        servicesCardEmailTextView.setText(currentUser.getEmail());
+        if (currentUser.getPhoto()==null || TextUtils.isEmpty(currentUser.getPhoto()) || currentUser.getPhoto().equals("null")) Glide.with(rootView.getContext()).load(userPlaceholderDrawable).into(servicesCardProfilePictureImageView);
+        else Glide.with(rootView.getContext()).load(currentUser.getPhoto()).into(servicesCardProfilePictureImageView);
     }
 
     @Override
