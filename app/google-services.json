@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "1045980237193-fahi28h6pm5g624rj6unmk9rkuacutbm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "letswave.co.in.wave",
+            "certificate_hash": "424d5992b4b309848ae63f009d57e6973c614f6c"
+          }
+        },
+        {
           "client_id": "1045980237193-o2nitn6r7oegc75gtc0datp5m14sul3i.apps.googleusercontent.com",
           "client_type": 3
         }

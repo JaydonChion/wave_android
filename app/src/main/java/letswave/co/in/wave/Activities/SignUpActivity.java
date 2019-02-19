@@ -122,7 +122,7 @@ public class SignUpActivity extends AppCompatActivity {
                     if (affectedRows==1) {
                         notifyMessage("New Account created.");
                         User user = new User(firebaseAuth.getCurrentUser().getUid(), "Nanyang Technological University", matric, name, email, null, null);
-                        Intent phoneNumberActivityIntent = new Intent(SignUpActivity.this, MainActivity.class);
+                        Intent phoneNumberActivityIntent = new Intent(SignUpActivity.this, PhoneNumberActivity.class);
                         phoneNumberActivityIntent.putExtra("USER", user);
                         startActivity(phoneNumberActivityIntent);
                     }

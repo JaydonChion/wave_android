@@ -79,8 +79,8 @@ public class SplashActivity extends AppCompatActivity {
                 String authorityIssuedId = response.getString("authority_issued_id");
                 String email = response.getString("email");
                 String photo = response.getString("photo");
-                String phone = response.getString("phone");
-                User currentUser = new User(firebaseAuth.getCurrentUser().getUid(), authorityName, authorityIssuedId, name, email, photo, phone);
+                User currentUser = new User(firebaseAuth.getCurrentUser().getUid(), authorityName, authorityIssuedId, name, email, photo, null);
+                if (response.has("phone")) currentUser.setPhone(response.getString("phone"));
                 Intent mainActivityIntent = new Intent(SplashActivity.this, MainActivity.class);
                 mainActivityIntent.putExtra("USER", currentUser);
                 startActivity(mainActivityIntent);

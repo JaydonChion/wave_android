@@ -2,7 +2,6 @@ package letswave.co.in.wave.Fragments;
 
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -20,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
-import butterknife.BindDrawable;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -56,8 +55,8 @@ public class ProfileFragment extends Fragment {
     Spinner profileSchoolSpinner;
     @BindView(R.id.profileSignOutTextView)
     TextView profileSignOutTextView;
-    @BindDrawable(R.drawable.user_placeholder)
-    Drawable userPlaceholderDrawable;
+    @BindString(R.string.placeholder_image)
+    String placeholderImageUrl;
 
     private View rootView;
     private Unbinder unbinder;
@@ -113,7 +112,7 @@ public class ProfileFragment extends Fragment {
         profileEmailEditText.setText(currentUser.getEmail());
         profileMatricEditText.setText(currentUser.getAuthorityIssuedId());
         profilePhoneEditText.setText(currentUser.getPhone());
-        if (currentUser.getPhoto()==null || TextUtils.isEmpty(currentUser.getPhoto()) || currentUser.getPhoto().equals("null")) Glide.with(rootView.getContext()).load(userPlaceholderDrawable).into(profileImageView);
+        if (currentUser.getPhoto()==null || TextUtils.isEmpty(currentUser.getPhoto()) || currentUser.getPhoto().equals("null")) Glide.with(rootView.getContext()).load(placeholderImageUrl).into(profileImageView);
         else Glide.with(rootView.getContext()).load(currentUser.getPhoto()).into(profileImageView);
     }
 

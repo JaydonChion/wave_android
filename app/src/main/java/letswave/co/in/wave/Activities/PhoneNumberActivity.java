@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -41,6 +43,18 @@ public class PhoneNumberActivity extends AppCompatActivity {
     AppCompatEditText phoneNumberEditText;
     @BindString(R.string.domain)
     String domainUrl;
+    @BindView(R.id.phoneNumberConfirmationCodeEditText)
+    AppCompatEditText phoneNumberConfirmationCodeEditText;
+    @BindView(R.id.phoneNumberEnterConfirmationCodeTextView)
+    TextView phoneNumberEnterConfirmationCodeTextView;
+    @BindView(R.id.phoneNUmberResendCodeTextView)
+    TextView phoneNUmberResendCodeTextView;
+    @BindView(R.id.phoneNumberChangeItTextView)
+    TextView phoneNumberChangeItTextView;
+    @BindView(R.id.phoneNumberConfirmationCodeLinearLayout)
+    LinearLayout phoneNumberConfirmationCodeLinearLayout;
+    @BindView(R.id.phoneNumberEditTextLinearLayout)
+    LinearLayout phoneNumberEditTextLinearLayout;
 
     private Unbinder unbinder;
     private FirebaseAuth firebaseAuth;
@@ -49,6 +63,7 @@ public class PhoneNumberActivity extends AppCompatActivity {
     private User currentUser;
     private String verificationId;
     private PhoneAuthProvider.ForceResendingToken resendingToken;
+    private String phoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,71 +83,78 @@ public class PhoneNumberActivity extends AppCompatActivity {
     private void initializeComponents() {
         firebaseAuth = FirebaseAuth.getInstance();
         requestQueue = Volley.newRequestQueue(getApplicationContext());
-        fetchCurrentUser();
-    }
-
-    private void fetchCurrentUser() {
-        String requestUrl = domainUrl+"/users/"+ Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-        JsonObjectRequest userObjectRequest = new JsonObjectRequest(Request.Method.GET, requestUrl, null, response -> {
-            try {
-                String id = response.getString("ID");
-                String authorityIssuerName = response.getString("authority_issuer_name");
-                String authorityIssuedId = response.getString("authority_issued_id");
-                String name = response.getString("name");
-                String email = response.getString("email");
-                String photo = response.getString("photo");
-                String phone = response.getString("phone");
-                currentUser = new User(id, authorityIssuerName, authorityIssuedId, name, email, photo, phone);
-            } catch (JSONException e) {
-                notifyMessage(e.getMessage());
-            }
-        }, error -> notifyMessage(error.getMessage()));
-        requestQueue.add(userObjectRequest);
+        currentUser = getIntent().getParcelableExtra("USER");
     }
 
     private void notifyMessage(String message) {
-        if (materialDialog!=null && materialDialog.isShowing()) materialDialog.dismiss();
+        if (materialDialog != null && materialDialog.isShowing()) materialDialog.dismiss();
         Snackbar.make(phoneNextTextView, message, Snackbar.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.phoneNextTextView)
     public void onNextTextViewPress() {
-        String phoneNumber = Objects.requireNonNull(phoneNumberEditText.getText()).toString();
-        if (phoneNumber.isEmpty() || phoneNumber.length()<10) notifyMessage("Please enter a valid phone number");
-        else {
-            PhoneAuthProvider.getInstance().verifyPhoneNumber(phoneNumber, 60, TimeUnit.SECONDS, PhoneNumberActivity.this, new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                @Override
-                public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-                    updateCurrentUser(phoneNumber);
-                }
+        if (phoneNumberEditTextLinearLayout.getVisibility()==View.VISIBLE) {
+            phoneNumber = Objects.requireNonNull(phoneNumberEditText.getText()).toString();
+            if (phoneNumber.isEmpty() || phoneNumber.length() < 10)
+                notifyMessage("Please enter a valid phone number");
+            else {
+                materialDialog = new MaterialDialog.Builder(PhoneNumberActivity.this)
+                        .title(getString(R.string.app_name))
+                        .content("Verifying Phone Number")
+                        .progress(true, 0)
+                        .show();
+                phoneNumberEnterConfirmationCodeTextView.setText("Enter the confirmation code we sent to "+phoneNumber+". If you didn't get it, we can");
+                PhoneAuthProvider.getInstance().verifyPhoneNumber("+91" + phoneNumber, 60, TimeUnit.SECONDS, PhoneNumberActivity.this, new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                    @Override
+                    public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+                        firebaseAuth.signInWithCredential(phoneAuthCredential).addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) updateCurrentUser(phoneNumber);
+                            else notifyMessage(Objects.requireNonNull(task.getException()).getMessage());
+                        });
+                    }
 
-                @Override
-                public void onVerificationFailed(FirebaseException e) {
-                    notifyMessage(e.getMessage());
-                }
+                    @Override
+                    public void onVerificationFailed(FirebaseException e) {
+                        notifyMessage(e.getMessage());
+                    }
 
-                @Override
-                public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                    super.onCodeSent(s, forceResendingToken);
-                    verificationId = s;
-                    resendingToken = forceResendingToken;
-                }
-            });
+                    @Override
+                    public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                        super.onCodeSent(s, forceResendingToken);
+                        verificationId = s;
+                        resendingToken = forceResendingToken;
+                        phoneNumberEditTextLinearLayout.setVisibility(View.GONE);
+                        phoneNumberConfirmationCodeLinearLayout.setVisibility(View.VISIBLE);
+                        if (materialDialog!=null && materialDialog.isShowing()) materialDialog.dismiss();
+                    }
+                });
+            }
+        } else if (phoneNumberConfirmationCodeLinearLayout.getVisibility()==View.VISIBLE) {
+            String enteredOtp = Objects.requireNonNull(phoneNumberConfirmationCodeEditText.getText()).toString();
+            verifyVerificationCode(enteredOtp, phoneNumber);
         }
+    }
+
+    private void verifyVerificationCode(String codeSentViaSms, String phoneNumber) {
+        PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(verificationId, codeSentViaSms);
+        firebaseAuth.signInWithCredential(phoneAuthCredential).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) updateCurrentUser(phoneNumber);
+            else notifyMessage(Objects.requireNonNull(task.getException()).getMessage());
+        });
     }
 
     private void updateCurrentUser(String phoneNumber) {
         try {
-            String requestUrl = domainUrl+"/users/update/phone/"+firebaseAuth.getUid();
+            String requestUrl = domainUrl + "/users/update/phone/" + currentUser.getId();
             JSONObject updateJsonObject = new JSONObject();
             updateJsonObject.put("phone", phoneNumber);
             JsonObjectRequest updatePhoneNumberRequest = new JsonObjectRequest(Request.Method.PUT, requestUrl, updateJsonObject, response -> {
                 try {
                     int affectedRows = response.getInt("affectedRows");
-                    if (affectedRows==1) {
+                    if (affectedRows == 1) {
                         currentUser.setPhone(phoneNumber);
-                        Intent mainActivityIntent = new Intent(PhoneNumberActivity.this, MainActivity.class);
-                        mainActivityIntent.putExtra("USER", currentUser);
+                        firebaseAuth.signOut();
+                        Intent mainActivityIntent = new Intent(PhoneNumberActivity.this, SignInActivity.class);
                         startActivity(mainActivityIntent);
                         finish();
                     }
@@ -144,6 +166,12 @@ public class PhoneNumberActivity extends AppCompatActivity {
         } catch (JSONException e) {
             notifyMessage(e.getMessage());
         }
+    }
+
+    @OnClick(R.id.phoneNumberChangeItTextView)
+    public void onChangePhoneNumberTextViewPress() {
+        phoneNumberConfirmationCodeLinearLayout.setVisibility(View.GONE);
+        phoneNumberEditTextLinearLayout.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -48,63 +48,138 @@
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
-    <android.support.v7.widget.CardView
-        app:contentPadding="10dp"
-        app:cardElevation="2dp"
-        app:cardBackgroundColor="@android:color/white"
+    <LinearLayout
+        android:id="@+id/phoneNumberEditTextLinearLayout"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
+        <android.support.v7.widget.CardView
+            app:contentPadding="10dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@android:color/white"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <ImageView
-                android:tint="@color/colorTextLight"
-                android:src="@drawable/smartphone_call"
-                android:layout_width="36dp"
-                android:layout_height="36dp" />
+                <ImageView
+                    android:tint="@color/colorTextLight"
+                    android:src="@drawable/smartphone_call"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp" />
 
-            <TextView
-                android:fontFamily="@font/helvetica_light"
-                android:textColor="@color/colorPrimary"
-                android:textSize="24sp"
-                android:text="SG"
-                android:layout_marginStart="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <TextView
+                    android:fontFamily="@font/helvetica_light"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="24sp"
+                    android:text="IN"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-            <TextView
-                android:fontFamily="@font/helvetica_light"
-                android:textColor="@color/colorTextDark"
-                android:textSize="24sp"
-                android:text="+65"
-                android:layout_marginStart="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <TextView
+                    android:fontFamily="@font/helvetica_light"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="24sp"
+                    android:text="+91"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/phoneNumberEditText"
+                    android:fontFamily="@font/helvetica_light"
+                    android:textSize="24sp"
+                    android:inputType="numberSigned"
+                    android:textColor="@color/colorTextDark"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:textColor="@color/colorTextDark"
+            android:fontFamily="@font/helvetica_bold"
+            android:textSize="14sp"
+            android:layout_margin="16dp"
+            android:text="You may receive SMS updates from Wave and can opt out at any time."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/phoneNumberConfirmationCodeLinearLayout"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.CardView
+            app:contentPadding="10dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
             <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/phoneNumberEditText"
-                android:fontFamily="@font/helvetica_light"
+                android:id="@+id/phoneNumberConfirmationCodeEditText"
+                android:fontFamily="@font/helvetica_bold"
                 android:textSize="24sp"
+                android:hint="Confirmation Code"
                 android:inputType="numberSigned"
                 android:textColor="@color/colorTextDark"
                 android:layout_marginStart="8dp"
                 android:backgroundTint="@android:color/transparent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+        </android.support.v7.widget.CardView>
 
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+        <TextView
+            android:id="@+id/phoneNumberEnterConfirmationCodeTextView"
+            android:textColor="@color/colorTextDark"
+            android:fontFamily="@font/helvetica_bold"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="Enter the confirmation code we sent to +91123. If you didn't get it, we can"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        android:textColor="@color/colorTextDark"
-        android:fontFamily="@font/helvetica_bold"
-        android:textSize="14sp"
-        android:layout_margin="16dp"
-        android:text="You may receive SMS updates from Wave and can opt out at any time."
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/phoneNUmberResendCodeTextView"
+            android:textColor="@color/colorAccent"
+            android:fontFamily="@font/helvetica_bold"
+            android:textSize="14sp"
+            android:layout_marginStart="16dp"
+            android:text="Resend the code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textColor="@color/colorTextDark"
+            android:fontFamily="@font/helvetica_bold"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="Didn't enter the right phone number?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/phoneNumberChangeItTextView"
+            android:textColor="@color/colorAccent"
+            android:fontFamily="@font/helvetica_bold"
+            android:textSize="14sp"
+            android:layout_marginStart="16dp"
+            android:text="Change it."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -3,7 +3,6 @@ package letswave.co.in.wave.Fragments;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,7 +21,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.util.Objects;
 
-import butterknife.BindDrawable;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -48,8 +47,8 @@ public class ServicesFragment extends Fragment {
     ImageView servicesCardBarCodeImageView;
     @BindView(R.id.servicesCardQRCodeImageView)
     ImageView servicesCardQRCodeImageView;
-    @BindDrawable(R.drawable.user_placeholder)
-    Drawable userPlaceholderDrawable;
+    @BindString(R.string.placeholder_image)
+    String placeholderImageUrl;
 
     private Unbinder unbinder;
     private View rootView;
@@ -132,7 +131,7 @@ public class ServicesFragment extends Fragment {
         servicesCardUserNameTextView.setText(currentUser.getName());
         servicesCardMatricTextView.setText(currentUser.getAuthorityIssuedId());
         servicesCardEmailTextView.setText(currentUser.getEmail());
-        if (currentUser.getPhoto()==null || TextUtils.isEmpty(currentUser.getPhoto()) || currentUser.getPhoto().equals("null")) Glide.with(rootView.getContext()).load(userPlaceholderDrawable).into(servicesCardProfilePictureImageView);
+        if (currentUser.getPhoto()==null || TextUtils.isEmpty(currentUser.getPhoto()) || currentUser.getPhoto().equals("null")) Glide.with(rootView.getContext()).load(placeholderImageUrl).into(servicesCardProfilePictureImageView);
         else Glide.with(rootView.getContext()).load(currentUser.getPhoto()).into(servicesCardProfilePictureImageView);
     }
 

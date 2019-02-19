@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE resources [
-    <!ENTITY domain "192.168.2.7">
+    <!ENTITY domain "192.168.2.5">
     <!ENTITY port "9999">
     ]>
 
@@ -13,6 +13,7 @@
     <string name="new_here">New here?</string>
     <string name="sign_up">Sign Up</string>
     <string name="sign_in">Sign In</string>
+    <string name="placeholder_image">https://www.woodfordoil.com/wp-content/uploads/2018/02/placeholder.jpg</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
