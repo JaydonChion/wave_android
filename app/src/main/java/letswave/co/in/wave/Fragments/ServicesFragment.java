@@ -6,7 +6,9 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,7 @@ import java.util.Objects;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 import letswave.co.in.wave.Activities.MainActivity;
@@ -49,6 +52,12 @@ public class ServicesFragment extends Fragment {
     ImageView servicesCardQRCodeImageView;
     @BindString(R.string.placeholder_image)
     String placeholderImageUrl;
+    @BindView(R.id.servicesCardReaderAccessCardView)
+    CardView servicesCardReaderAccessCardView;
+    @BindView(R.id.servicesLibraryFinesCardView)
+    CardView servicesLibraryFinesCardView;
+    @BindView(R.id.servicesSleepingPodCardView)
+    CardView servicesSleepingPodCardView;
 
     private Unbinder unbinder;
     private View rootView;
@@ -98,7 +107,8 @@ public class ServicesFragment extends Fragment {
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
-            if (bitmap!=null && servicesCardBarCodeImageView!=null) Glide.with(rootView.getContext()).load(bitmap).into(servicesCardBarCodeImageView);
+            if (bitmap != null && servicesCardBarCodeImageView != null)
+                Glide.with(rootView.getContext()).load(bitmap).into(servicesCardBarCodeImageView);
         }
     }
 
@@ -117,7 +127,8 @@ public class ServicesFragment extends Fragment {
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
-            if (bitmap!=null && servicesCardQRCodeImageView!=null) Glide.with(rootView.getContext()).load(bitmap).into(servicesCardQRCodeImageView);
+            if (bitmap != null && servicesCardQRCodeImageView != null)
+                Glide.with(rootView.getContext()).load(bitmap).into(servicesCardQRCodeImageView);
         }
     }
 
@@ -131,8 +142,20 @@ public class ServicesFragment extends Fragment {
         servicesCardUserNameTextView.setText(currentUser.getName());
         servicesCardMatricTextView.setText(currentUser.getAuthorityIssuedId());
         servicesCardEmailTextView.setText(currentUser.getEmail());
-        if (currentUser.getPhoto()==null || TextUtils.isEmpty(currentUser.getPhoto()) || currentUser.getPhoto().equals("null")) Glide.with(rootView.getContext()).load(placeholderImageUrl).into(servicesCardProfilePictureImageView);
-        else Glide.with(rootView.getContext()).load(currentUser.getPhoto()).into(servicesCardProfilePictureImageView);
+        if (currentUser.getPhoto() == null || TextUtils.isEmpty(currentUser.getPhoto()) || currentUser.getPhoto().equals("null"))
+            Glide.with(rootView.getContext()).load(placeholderImageUrl).into(servicesCardProfilePictureImageView);
+        else
+            Glide.with(rootView.getContext()).load(currentUser.getPhoto()).into(servicesCardProfilePictureImageView);
+    }
+
+    @OnClick(R.id.servicesCardReaderAccessCardView)
+    public void onCardReaderAccessCardViewPress() {
+        Snackbar.make(servicesSleepingPodCardView, "NFC based facility access under development, coming soon.", Snackbar.LENGTH_LONG).show();
+    }
+
+    @OnClick(R.id.servicesSleepingPodCardView)
+    public void onSleepingPodCardViewPress() {
+        Snackbar.make(servicesSleepingPodCardView, "Sleeping Pod booking services under development, coming soon.", Snackbar.LENGTH_LONG).show();
     }
 
     @Override
