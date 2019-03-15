@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE resources [
-    <!ENTITY domain "192.168.2.4">
-    <!ENTITY port "9999">
+    <!ENTITY domain "192.168.2.3">
+    <!ENTITY port "9090">
     ]>
 
 <resources>

@@ -75,8 +75,8 @@ public class SplashActivity extends AppCompatActivity {
         JsonObjectRequest userObjectRequest = new JsonObjectRequest(Request.Method.GET, requestUrl, null, response -> {
             try {
                 String name = response.getString("name");
-                String authorityName = response.getString("authority_issuer_name");
-                String authorityIssuedId = response.getString("authority_issued_id");
+                String authorityName = response.getString("authority_name");
+                String authorityIssuedId = response.getString("authority_id");
                 String email = response.getString("email");
                 String photo = response.getString("photo");
                 User currentUser = new User(firebaseAuth.getCurrentUser().getUid(), authorityName, authorityIssuedId, name, email, photo, null);

@@ -92,13 +92,14 @@ public class SignInActivity extends AppCompatActivity {
         String requestUrl = domain+"/users/"+ Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
         JsonObjectRequest userObjectRequest = new JsonObjectRequest(Request.Method.GET, requestUrl, null, response -> {
             try {
+                String userId = response.getString("_id");
                 String name = response.getString("name");
-                String authorityName = response.getString("authority_issuer_name");
-                String authorityIssuedId = response.getString("authority_issued_id");
+                String authorityName = response.getString("authority_name");
+                String authorityIssuedId = response.getString("authority_id");
                 String email = response.getString("email");
                 String photo = response.getString("photo");
-                User currentUser = new User(firebaseAuth.getCurrentUser().getUid(), authorityName, authorityIssuedId, name, email, photo, null);
-                if (response.has("phone")) currentUser.setPhone(response.getString("phone"));
+                String phone = response.getString("phone");
+                User currentUser = new User(userId, authorityName, authorityIssuedId, name, email, photo, phone);
                 Intent mainActivityIntent = new Intent(SignInActivity.this, MainActivity.class);
                 mainActivityIntent.putExtra("USER", currentUser);
                 startActivity(mainActivityIntent);

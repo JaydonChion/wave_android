@@ -3,13 +3,13 @@ package letswave.co.in.wave.Fragments;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.text.TextUtils;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +26,6 @@ import java.util.Objects;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 import letswave.co.in.wave.Activities.MainActivity;
@@ -52,12 +51,6 @@ public class ServicesFragment extends Fragment {
     ImageView servicesCardQRCodeImageView;
     @BindString(R.string.placeholder_image)
     String placeholderImageUrl;
-    @BindView(R.id.servicesCardReaderAccessCardView)
-    CardView servicesCardReaderAccessCardView;
-    @BindView(R.id.servicesLibraryFinesCardView)
-    CardView servicesLibraryFinesCardView;
-    @BindView(R.id.servicesSleepingPodCardView)
-    CardView servicesSleepingPodCardView;
 
     private Unbinder unbinder;
     private View rootView;
@@ -84,8 +77,6 @@ public class ServicesFragment extends Fragment {
 
     private void placeholderData() {
         Glide.with(rootView.getContext()).load("http://keenthemes.com/preview/metronic/theme/assets/pages/media/profile/people19.png").into(servicesCardProfilePictureImageView);
-        //Glide.with(rootView.getContext()).load("https://internationalbarcodes.com/wp-content/uploads/sites/95/2013/11/Code-128.jpg").into(servicesCardBarCodeImageView);
-        //Glide.with(rootView.getContext()).load("https://previews.123rf.com/images/foxindustry/foxindustry1310/foxindustry131000005/23317476-sample-qr-code-ready-to-scan-with-smart-phone.jpg").into(servicesCardQRCodeImageView);
     }
 
     private void initializeComponents() {
@@ -98,7 +89,10 @@ public class ServicesFragment extends Fragment {
         @Override
         protected Bitmap doInBackground(String... strings) {
             try {
-                return barcodeEncoder.encodeBitmap(strings[0], BarcodeFormat.CODE_128, 400, 96);
+                Display display = rootView.getDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                return barcodeEncoder.encodeBitmap(strings[0], BarcodeFormat.CODE_128, size.x, 196);
             } catch (WriterException e) {
                 return null;
             }
@@ -148,6 +142,7 @@ public class ServicesFragment extends Fragment {
             Glide.with(rootView.getContext()).load(currentUser.getPhoto()).into(servicesCardProfilePictureImageView);
     }
 
+    /*
     @OnClick(R.id.servicesCardReaderAccessCardView)
     public void onCardReaderAccessCardViewPress() {
         Snackbar.make(servicesSleepingPodCardView, "NFC based facility access under development, coming soon.", Snackbar.LENGTH_LONG).show();
@@ -157,6 +152,7 @@ public class ServicesFragment extends Fragment {
     public void onSleepingPodCardViewPress() {
         Snackbar.make(servicesSleepingPodCardView, "Sleeping Pod booking services under development, coming soon.", Snackbar.LENGTH_LONG).show();
     }
+    */
 
     @Override
     public void onDestroy() {

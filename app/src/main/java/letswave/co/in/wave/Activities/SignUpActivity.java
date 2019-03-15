@@ -112,20 +112,23 @@ public class SignUpActivity extends AppCompatActivity {
             JSONObject userObject = new JSONObject();
             userObject.put("id", Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
             userObject.put("name", name);
-            userObject.put("authority_issuer_name", "Nanyang Technological University");
-            userObject.put("authority_issued_id", matric);
+            userObject.put("authority_name", "Nanyang Technological University");
+            userObject.put("authority_id", matric);
             userObject.put("email", email);
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, requestUrl, userObject, response -> {
                 try {
-                    int affectedRows = response.getInt("affectedRows");
-                    if (affectedRows==1) {
-                        notifyMessage("New Account created.");
-                        User user = new User(firebaseAuth.getCurrentUser().getUid(), "Nanyang Technological University", matric, name, email, null, null);
-                        Intent phoneNumberActivityIntent = new Intent(SignUpActivity.this, PhoneNumberActivity.class);
-                        phoneNumberActivityIntent.putExtra("USER", user);
-                        startActivity(phoneNumberActivityIntent);
-                    }
+                    String userId = response.getString("_id");
+                    String nameOnServer = response.getString("name");
+                    String authorityName = response.getString("authority_name");
+                    String authorityIssuedId = response.getString("authority_id");
+                    String emailOnServer = response.getString("email");
+                    String photo = response.getString("photo");
+                    String phone = response.getString("phone");
+                    User currentUser = new User(userId, authorityName, authorityIssuedId, nameOnServer, emailOnServer, photo, phone);
+                    Intent phoneNumberActivityIntent = new Intent(SignUpActivity.this, MainActivity.class);
+                    phoneNumberActivityIntent.putExtra("USER", currentUser);
+                    startActivity(phoneNumberActivityIntent);
                 } catch (JSONException e) {
                     notifyMessage(e.getMessage());
                 }
