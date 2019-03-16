@@ -28,6 +28,7 @@
         android:layout_height="wrap_content" />
 
     <Button
+        android:id="@+id/goodieBagDialogRedeemButton"
         android:fontFamily="@font/helvetica_bold"
         android:textColor="@android:color/white"
         android:text="REDEEM"

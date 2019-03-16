@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
@@ -18,6 +19,8 @@ import butterknife.Unbinder;
 import letswave.co.in.wave.Adapters.MainViewPagerAdapter;
 import letswave.co.in.wave.Models.User;
 import letswave.co.in.wave.R;
+
+import static com.google.firebase.analytics.FirebaseAnalytics.Event.SELECT_CONTENT;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private NfcManager nfcManager;
     private NfcAdapter nfcAdapter;
     private SharedPreferences.Editor editor;
+    private FirebaseAnalytics firebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
         if (nfcAdapter==null || !nfcAdapter.isEnabled()) {
             //Open NFC settings
         }
+        firebaseAnalytics = FirebaseAnalytics.getInstance(MainActivity.this);
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, currentUser.getId());
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, currentUser.getName());
+        firebaseAnalytics.logEvent(SELECT_CONTENT, bundle);
     }
 
     public SharedPreferences.Editor getEditor() {

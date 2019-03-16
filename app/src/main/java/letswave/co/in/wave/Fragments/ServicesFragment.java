@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -18,7 +20,9 @@ import letswave.co.in.wave.Activities.GoodieBagCollectionActivity;
 import letswave.co.in.wave.Activities.HallAccessActivity;
 import letswave.co.in.wave.Activities.HiveActivity;
 import letswave.co.in.wave.Activities.LeeWeeNamActivity;
+import letswave.co.in.wave.Activities.MainActivity;
 import letswave.co.in.wave.Activities.SleepingPodActivity;
+import letswave.co.in.wave.Models.User;
 import letswave.co.in.wave.R;
 
 /**
@@ -40,6 +44,7 @@ public class ServicesFragment extends Fragment {
 
     private Unbinder unbinder;
     private View rootView;
+    private User currentUser;
 
     public ServicesFragment() {
     }
@@ -58,7 +63,7 @@ public class ServicesFragment extends Fragment {
     }
 
     private void initializeComponents() {
-
+        currentUser = ((MainActivity) Objects.requireNonNull(getActivity())).getCurrentUser();
     }
 
     @Override
@@ -99,7 +104,9 @@ public class ServicesFragment extends Fragment {
 
     @OnClick(R.id.servicesGoodieBagCollectionLayout)
     public void onGoodieBagCollectionLayoutPress() {
-        startActivity(new Intent(rootView.getContext(), GoodieBagCollectionActivity.class));
+        Intent goodieBagIntent = new Intent(rootView.getContext(), GoodieBagCollectionActivity.class);
+        goodieBagIntent.putExtra("USER", currentUser);
+        startActivity(goodieBagIntent);
     }
 
 }
