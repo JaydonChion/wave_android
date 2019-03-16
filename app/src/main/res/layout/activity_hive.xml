@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.HiveActivity">
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/hiveToolbar"
+            android:elevation="8dp"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.Toolbar>
+
+        <ImageView
+            android:scaleType="centerCrop"
+            android:layout_marginTop="100dp"
+            android:src="@drawable/smartphone_two"
+            android:layout_width="256dp"
+            android:layout_height="256dp" />
+
+        <TextView
+            android:layout_marginTop="32dp"
+            android:textColor="@color/colorTextDark"
+            android:textSize="20sp"
+            android:fontFamily="@font/helvetica_bold"
+            android:textAllCaps="true"
+            android:text="Facilities Access Service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:fontFamily="@font/helvetica_bold"
+            android:textColor="@color/colorTextDark"
+            android:layout_marginTop="16dp"
+            android:textSize="18sp"
+            android:text="The Arc &amp; Hive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:fontFamily="@font/helvetica_light"
+            android:textColor="@color/colorTextDark"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:text="Tap your phone against the card reader."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</ScrollView>

@@ -48,6 +48,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/servicesHiveMobileAccessLayout"
                     android:layout_marginTop="8dp"
                     android:padding="8dp"
                     android:gravity="center_vertical"
@@ -76,6 +77,7 @@
                     android:layout_height="1dp" />
 
                 <LinearLayout
+                    android:id="@+id/servicesLeeWeeNamMobileAccessLayout"
                     android:padding="8dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
@@ -103,6 +105,7 @@
                     android:layout_height="1dp" />
 
                 <LinearLayout
+                    android:id="@+id/servicesSleepingPodBookingLayout"
                     android:padding="8dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
@@ -130,6 +133,7 @@
                     android:layout_height="1dp" />
 
                 <LinearLayout
+                    android:id="@+id/servicesHallAccessLayout"
                     android:padding="8dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
@@ -180,6 +184,7 @@
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
+                    android:id="@+id/servicesGoodieBagCollectionLayout"
                     android:layout_marginTop="8dp"
                     android:padding="8dp"
                     android:gravity="center_vertical"

@@ -3,13 +3,11 @@ package letswave.co.in.wave.Fragments;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
-import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +43,6 @@ public class IdentityFragment extends Fragment {
     TextView identityCardMatricTextView;
     @BindView(R.id.identityCardEmailTextView)
     TextView identityCardEmailTextView;
-    @BindView(R.id.identityCardBarCodeImageView)
-    ImageView identityCardBarCodeImageView;
     @BindView(R.id.identityCardQRCodeImageView)
     ImageView identityCardQRCodeImageView;
     @BindString(R.string.placeholder_image)
@@ -84,29 +80,6 @@ public class IdentityFragment extends Fragment {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private class GenerateAndRenderBarCode extends AsyncTask<String, Void, Bitmap> {
-
-        @Override
-        protected Bitmap doInBackground(String... strings) {
-            try {
-                Display display = rootView.getDisplay();
-                Point size = new Point();
-                display.getSize(size);
-                return barcodeEncoder.encodeBitmap(strings[0], BarcodeFormat.CODE_128, size.x, 196);
-            } catch (WriterException e) {
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            super.onPostExecute(bitmap);
-            if (bitmap != null && identityCardBarCodeImageView != null)
-                Glide.with(rootView.getContext()).load(bitmap).into(identityCardBarCodeImageView);
-        }
-    }
-
-    @SuppressLint("StaticFieldLeak")
     private class GenerateAndRenderQRCode extends AsyncTask<String, Void, Bitmap> {
 
         @Override
@@ -131,7 +104,6 @@ public class IdentityFragment extends Fragment {
         super.onStart();
         unbinder = ButterKnife.bind(IdentityFragment.this, rootView);
         currentUser = ((MainActivity) Objects.requireNonNull(getActivity())).getCurrentUser();
-        new GenerateAndRenderBarCode().execute(currentUser.getAuthorityIssuedId());
         new GenerateAndRenderQRCode().execute(currentUser.getAuthorityIssuedId());
         identityCardUserNameTextView.setText(currentUser.getName());
         identityCardMatricTextView.setText(currentUser.getAuthorityIssuedId());

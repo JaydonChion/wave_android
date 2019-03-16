@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.LeeWeeNamActivity">
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/leeWeeNamToolbar"
+            android:elevation="8dp"
+            android:layout_marginBottom="64dp"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.design.card.MaterialCardView
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="16dp"
+            android:layout_margin="16dp"
+            app:cardElevation="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/leeWeeNamBarCodeImageView"
+                android:layout_width="match_parent"
+                android:layout_height="128dp" />
+        </android.support.design.card.MaterialCardView>
+
+        <ImageView
+            android:scaleType="centerCrop"
+            android:layout_marginTop="80dp"
+            android:src="@drawable/books"
+            android:layout_width="196dp"
+            android:layout_height="196dp" />
+
+        <TextView
+            android:layout_marginTop="32dp"
+            android:textColor="@color/colorTextDark"
+            android:textSize="20sp"
+            android:fontFamily="@font/helvetica_bold"
+            android:text="Lee Wee Nam Mobile Access"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:fontFamily="@font/helvetica_light"
+            android:textColor="@color/colorTextDark"
+            android:layout_marginTop="16dp"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:text="Scan the barcode\nunder the barcode reader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</ScrollView>

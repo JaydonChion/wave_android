@@ -11,6 +11,10 @@
     <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="false" />
+
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="true"
@@ -21,7 +25,12 @@
         android:supportsRtl="true"
         android:theme="@style/FullscreenAppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activities.PhoneNumberActivity"></activity>
+        <activity android:name=".Activities.GoodieBagCollectionActivity" android:parentActivityName=".Activities.MainActivity" android:label="Goodie Bag Collection" />
+        <activity android:name=".Activities.SleepingPodActivity" android:parentActivityName=".Activities.MainActivity" android:label="Sleeping Pod Booking" />
+        <activity android:name=".Activities.LeeWeeNamActivity" android:parentActivityName=".Activities.MainActivity" android:label="Lee Wee Nam Mobile Access" />
+        <activity android:name=".Activities.HallAccessActivity" android:parentActivityName=".Activities.MainActivity" android:label="Hall Access" />
+        <activity android:name=".Activities.HiveActivity" android:parentActivityName=".Activities.MainActivity" android:label="Hive &amp; Arc Mobile Access" />
+        <activity android:name=".Activities.PhoneNumberActivity" />
         <activity android:name=".Activities.MainActivity" />
         <activity
             android:name=".Activities.SignUpActivity"

@@ -1,6 +1,8 @@
 package letswave.co.in.wave.Activities;
 
 import android.content.SharedPreferences;
+import android.nfc.NfcAdapter;
+import android.nfc.NfcManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private Unbinder unbinder;
     private MainViewPagerAdapter mainViewPagerAdapter;
     private User currentUser;
+    private NfcManager nfcManager;
+    private NfcAdapter nfcAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,11 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = getSharedPreferences("SP", MODE_PRIVATE).edit();
         editor.putString("email", currentUser.getEmail());
         editor.apply();
+        nfcManager = (NfcManager) getSystemService(NFC_SERVICE);
+        nfcAdapter = nfcManager.getDefaultAdapter();
+        if (nfcAdapter==null || !nfcAdapter.isEnabled()) {
+            //Open NFC settings
+        }
     }
 
     @Override
