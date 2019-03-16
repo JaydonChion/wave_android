@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import letswave.co.in.wave.R;
 
@@ -16,6 +19,7 @@ public class GoodieBagCollectionActivity extends AppCompatActivity {
     Toolbar goodieBagCollectionToolbar;
 
     private Unbinder unbinder;
+    private MaterialDialog materialDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,13 @@ public class GoodieBagCollectionActivity extends AppCompatActivity {
 
     private void initializeComponents() {
 
+    }
+
+    @OnClick(R.id.goodieBagCameraImageView)
+    public void onCameraImageViewPress() {
+        materialDialog = new MaterialDialog.Builder(GoodieBagCollectionActivity.this)
+                .customView(R.layout.dialog_redeem_goodie_bag, true)
+                .show();
     }
 
     @Override
