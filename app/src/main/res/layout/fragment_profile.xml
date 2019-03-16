@@ -93,7 +93,7 @@
 
         <LinearLayout
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:orientation="horizontal"
             android:gravity="center"
@@ -121,7 +121,7 @@
 
         <LinearLayout
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:orientation="horizontal"
             android:gravity="center"
@@ -149,7 +149,7 @@
 
         <LinearLayout
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:orientation="horizontal"
             android:gravity="center"
@@ -177,7 +177,7 @@
 
         <LinearLayout
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:gravity="center"
             android:orientation="horizontal"
@@ -206,7 +206,7 @@
             android:textSize="16sp"
             android:textColor="@color/colorPrimary"
             android:text="Sign out"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
