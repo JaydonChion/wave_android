@@ -18,6 +18,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 
@@ -40,6 +42,7 @@ public class SplashActivity extends AppCompatActivity {
     private Unbinder unbinder;
     private static final int SPLASH_DELAY_LENGTH = 1000;
     private String email;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void initializeComponents() {
         firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         SharedPreferences prefs = getSharedPreferences("SP", MODE_PRIVATE);
         email = prefs.getString("email", null);

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources [<!ENTITY domain "ec2-3-18-106-8.us-east-2.compute.amazonaws.com"><!ENTITY port "9090">]>
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources [<!ENTITY domain "ec2-18-191-163-185.us-east-2.compute.amazonaws.com"><!ENTITY port "9090">]>
 
 <resources>
     <string name="app_name">Wave</string>

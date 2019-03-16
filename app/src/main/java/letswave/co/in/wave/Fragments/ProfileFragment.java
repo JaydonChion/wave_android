@@ -2,6 +2,7 @@ package letswave.co.in.wave.Fragments;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -75,6 +76,7 @@ public class ProfileFragment extends Fragment {
     private User currentUser;
     private RequestQueue requestQueue;
     private MaterialDialog materialDialog;
+    private SharedPreferences.Editor editor;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -102,6 +104,7 @@ public class ProfileFragment extends Fragment {
 
     private void initializeComponents() {
         firebaseAuth = FirebaseAuth.getInstance();
+        editor = ((MainActivity) Objects.requireNonNull(getActivity())).getEditor();
         String schoolsArray[] = getResources().getStringArray(R.array.schools);
         ArrayAdapter<String> schoolsStringDropDownAdapter = new ArrayAdapter<>(rootView.getContext(), android.R.layout.simple_spinner_dropdown_item, schoolsArray);
         profileSchoolSpinner.setAdapter(schoolsStringDropDownAdapter);
@@ -112,6 +115,8 @@ public class ProfileFragment extends Fragment {
     @OnClick(R.id.profileSignOutTextView)
     public void onSignOutTextViewPress() {
         firebaseAuth.signOut();
+        editor.putString("email", null);
+        editor.apply();
         Objects.requireNonNull(getActivity()).startActivity(new Intent(rootView.getContext(), SignInActivity.class));
         Objects.requireNonNull(getActivity()).finish();
     }
@@ -136,14 +141,21 @@ public class ProfileFragment extends Fragment {
                     .show();
             JSONObject updateJson = new JSONObject();
             updateJson.put("name", name);
-            updateJson.put("authority_issuer_name", school);
-            updateJson.put("authority_issued_id", matric);
+            updateJson.put("authority_name", school);
+            updateJson.put("authority_id", matric);
             updateJson.put("phone", phone);
             String requestUrl = baseServerUrl+"/users/update/"+currentUser.getId();
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, requestUrl, updateJson, response -> {
                 try {
-                    int affectedRows = response.getInt("affectedRows");
-                    if (affectedRows>=1) notifyMessage("Profile updated");
+                    String userId = response.getString("_id");
+                    String nameNew = response.getString("name");
+                    String email = response.getString("email");
+                    String authorityName = response.getString("authority_name");
+                    String authorityIssuedId = response.getString("authority_id");
+                    String photo = response.getString("photo");
+                    String phoneNew = response.getString("phone");
+                    User currentUser = new User(userId, authorityName, authorityIssuedId, nameNew, email, photo, phoneNew);
+                    ((MainActivity) Objects.requireNonNull(getActivity())).setCurrentUser(currentUser);
                 } catch (JSONException e) { notifyMessage(e.getMessage()); }
             }, error -> notifyMessage(error.getMessage()));
             requestQueue.add(jsonObjectRequest);

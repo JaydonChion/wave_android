@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private User currentUser;
     private NfcManager nfcManager;
     private NfcAdapter nfcAdapter;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeComponents() {
         firebaseAuth = FirebaseAuth.getInstance();
-        SharedPreferences.Editor editor = getSharedPreferences("SP", MODE_PRIVATE).edit();
+        editor = getSharedPreferences("SP", MODE_PRIVATE).edit();
         editor.putString("email", currentUser.getEmail());
         editor.apply();
         nfcManager = (NfcManager) getSystemService(NFC_SERVICE);
@@ -63,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
         if (nfcAdapter==null || !nfcAdapter.isEnabled()) {
             //Open NFC settings
         }
+    }
+
+    public SharedPreferences.Editor getEditor() {
+        return editor;
     }
 
     @Override
@@ -77,5 +82,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
+        mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
+        mainViewPager.setAdapter(mainViewPagerAdapter);
+        mainTabLayout.setupWithViewPager(mainViewPager);
     }
 }
