@@ -1,6 +1,7 @@
 package letswave.co.in.wave.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,8 +21,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
 
-import java.util.Objects;
-
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +39,7 @@ public class SplashActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private Unbinder unbinder;
     private static final int SPLASH_DELAY_LENGTH = 1000;
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +62,9 @@ public class SplashActivity extends AppCompatActivity {
     private void initializeComponents() {
         firebaseAuth = FirebaseAuth.getInstance();
         requestQueue = Volley.newRequestQueue(getApplicationContext());
-        if (firebaseAuth.getCurrentUser()==null) {
+        SharedPreferences prefs = getSharedPreferences("SP", MODE_PRIVATE);
+        email = prefs.getString("email", null);
+        if (email==null) {
             new Handler().postDelayed(() -> {
                 startActivity(new Intent(SplashActivity.this, SignInActivity.class));
                 finish();
@@ -71,15 +73,17 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void fetchCurrentUser() {
-        String requestUrl = domain+"/users/"+ Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+        String requestUrl = domain+"/users/"+email;
         JsonObjectRequest userObjectRequest = new JsonObjectRequest(Request.Method.GET, requestUrl, null, response -> {
             try {
+                String userId = response.getString("_id");
                 String name = response.getString("name");
                 String authorityName = response.getString("authority_name");
                 String authorityIssuedId = response.getString("authority_id");
-                String email = response.getString("email");
+                email = response.getString("email");
                 String photo = response.getString("photo");
-                User currentUser = new User(firebaseAuth.getCurrentUser().getUid(), authorityName, authorityIssuedId, name, email, photo, null);
+                String phone = response.getString("phone");
+                User currentUser = new User(userId, authorityName, authorityIssuedId, name, email, photo, phone);
                 if (response.has("phone")) currentUser.setPhone(response.getString("phone"));
                 Intent mainActivityIntent = new Intent(SplashActivity.this, MainActivity.class);
                 mainActivityIntent.putExtra("USER", currentUser);

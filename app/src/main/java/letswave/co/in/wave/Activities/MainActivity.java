@@ -1,5 +1,6 @@
 package letswave.co.in.wave.Activities;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -50,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeComponents() {
         firebaseAuth = FirebaseAuth.getInstance();
+        SharedPreferences.Editor editor = getSharedPreferences("SP", MODE_PRIVATE).edit();
+        editor.putString("email", currentUser.getEmail());
+        editor.apply();
     }
 
     @Override

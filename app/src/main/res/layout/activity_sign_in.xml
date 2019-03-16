@@ -39,7 +39,9 @@
             android:layout_height="wrap_content" />
 
         <android.support.design.widget.TextInputLayout
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <android.support.design.widget.TextInputEditText
@@ -53,20 +55,13 @@
                 android:layout_height="match_parent" />
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/signInPasswordEditText"
-                android:inputType="textPassword"
-                android:textSize="16sp"
-                android:fontFamily="@font/helvetica_bold"
-                android:textColor="@android:color/black"
-                android:hint="@string/password"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </android.support.design.widget.TextInputLayout>
+        <TextView
+            android:layout_marginTop="8dp"
+            android:textSize="14sp"
+            android:text="Sign in with your student email."
+            android:textColor="@color/colorTextLight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/signInButton"
@@ -81,6 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <!--
         <LinearLayout
             android:layout_marginTop="16dp"
             android:gravity="center"
@@ -103,6 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+        -->
 
     </LinearLayout>
 </ScrollView>

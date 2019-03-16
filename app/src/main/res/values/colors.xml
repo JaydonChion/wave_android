@@ -4,6 +4,6 @@
     <color name="colorPrimaryDark">@color/colorPrimary</color>
     <color name="colorAccent">#007137</color>
     <color name="colorTextDark">#424242</color>
-    <color name="colorTextLight">#808080</color>
+    <color name="colorTextLight">#787878</color>
     <color name="colorTextDivider">#EEEEEE</color>
 </resources>

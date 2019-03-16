@@ -5,249 +5,204 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.ServicesFragment">
-
     <LinearLayout
+        android:clipToPadding="false"
+        android:clipChildren="false"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.CardView
-            app:cardBackgroundColor="@android:color/white"
-            app:cardCornerRadius="32dp"
+        <TextView
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:textSize="14sp"
+            android:textColor="@color/colorTextLight"
+            android:text="Available in Nanyang Technological University"
+            android:fontFamily="@font/helvetica_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <android.support.design.card.MaterialCardView
             android:layout_margin="8dp"
-            app:cardElevation="8dp"
+            app:contentPadding="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
-                android:gravity="center"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/helvetica_bold"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="24sp"
+                    android:text="Services"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
 
                 <LinearLayout
-                    android:layout_marginTop="12dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="8dp"
+                    android:padding="8dp"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/servicesCardProfilePictureImageView"
-                        tools:src="@drawable/logo"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp" />
-
-                    <LinearLayout
-                        android:layout_marginStart="16dp"
-                        android:orientation="vertical"
-                        android:gravity="center_vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:id="@+id/servicesCardUserNameTextView"
-                            android:text="User Name"
-                            android:textSize="16sp"
-                            android:fontFamily="@font/helvetica_bold"
-                            android:textColor="@android:color/black"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:id="@+id/servicesCardMatricTextView"
-                            android:textSize="14sp"
-                            android:text="Student Matric"
-                            android:fontFamily="@font/helvetica_bold"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:id="@+id/servicesCardEmailTextView"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/helvetica_bold"
-                            android:text="email@address.com"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
+                        app:civ_circle_background_color="#c792f5"
+                        android:src="@drawable/id_card"
+                        android:scaleType="centerCrop"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp" />
+                    <TextView
+                        android:layout_marginStart="20dp"
+                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/helvetica_light"
+                        android:text="Hive &amp; Arc Mobile Access"
+                        android:textSize="19sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/servicesCardBarCodeImageView"
-                    android:layout_marginTop="16dp"
+                <View
+                    android:background="@color/colorTextDivider"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp" />
+                    android:layout_height="1dp" />
 
-                <ImageView
-                    android:id="@+id/servicesCardQRCodeImageView"
-                    android:layout_width="180dp"
-                    android:layout_height="180dp" />
-
-                <!--
                 <LinearLayout
-                    android:gravity="center"
-                    android:layout_marginBottom="8dp"
+                    android:padding="8dp"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        app:civ_circle_background_color="#f5a623"
+                        android:src="@drawable/books"
+                        android:scaleType="centerCrop"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp" />
                     <TextView
+                        android:layout_marginStart="20dp"
                         android:textColor="@android:color/black"
-                        android:textSize="16sp"
-                        android:text="Tap here for "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:textColor="@color/colorAccent"
-                        android:textSize="16sp"
-                        android:text="instructions."
+                        android:fontFamily="@font/helvetica_light"
+                        android:text="Lee Wee Nam Mobile Access"
+                        android:textSize="19sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
-                -->
+
+                <View
+                    android:background="@color/colorTextDivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
+                <LinearLayout
+                    android:padding="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        app:civ_circle_background_color="#fe8b8e"
+                        android:src="@drawable/bed"
+                        android:scaleType="centerCrop"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp" />
+                    <TextView
+                        android:layout_marginStart="20dp"
+                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/helvetica_light"
+                        android:text="Sleeping Pod Booking"
+                        android:textSize="19sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <View
+                    android:background="@color/colorTextDivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
+                <LinearLayout
+                    android:padding="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        app:civ_circle_background_color="#5ac8fa"
+                        android:src="@drawable/house"
+                        android:scaleType="centerCrop"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp" />
+                    <TextView
+                        android:layout_marginStart="20dp"
+                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/helvetica_light"
+                        android:text="Hall Access"
+                        android:textSize="19sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
 
             </LinearLayout>
-        </android.support.v7.widget.CardView>
+        </android.support.design.card.MaterialCardView>
 
-        <!--
-        <android.support.v7.widget.CardView
-            android:id="@+id/servicesCardReaderAccessCardView"
-            app:contentPadding="10dp"
-            app:cardCornerRadius="16dp"
+        <android.support.design.card.MaterialCardView
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:contentPadding="8dp"
+            app:cardCornerRadius="8dp"
             app:cardUseCompatPadding="true"
-            android:alpha="0.70"
-            app:cardBackgroundColor="@color/colorAccent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:src="@drawable/key_card"
-                    android:tint="@android:color/white"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp" />
-                <TextView
-                    android:layout_margin="16dp"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/helvetica_bold"
-                    android:text="Card Reader Access"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
-                <ImageView
-                    android:src="@drawable/ic_keyboard_arrow_right_white_24dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/servicesLibraryFinesCardView"
-            app:contentPadding="10dp"
-            app:cardCornerRadius="16dp"
-            app:cardUseCompatPadding="true"
-            android:alpha="0.70"
-            app:cardBackgroundColor="@color/colorAccent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:src="@drawable/bill_2"
-                    android:tint="@android:color/white"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp" />
-                <TextView
-                    android:layout_margin="16dp"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:text="Library Fines"
-                    android:fontFamily="@font/helvetica_bold"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
-                <ImageView
-                    android:src="@drawable/ic_keyboard_arrow_right_white_24dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/servicesSleepingPodCardView"
-            app:contentPadding="10dp"
-            app:cardCornerRadius="16dp"
-            app:cardUseCompatPadding="true"
-            android:alpha="0.70"
-            app:cardBackgroundColor="@color/colorAccent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:src="@drawable/sleeping_bag"
-                    android:tint="@android:color/white"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp" />
-                <TextView
-                    android:layout_margin="16dp"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:text="Sleeping Pod"
-                    android:fontFamily="@font/helvetica_bold"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
-                <ImageView
-                    android:src="@drawable/ic_keyboard_arrow_right_white_24dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-        -->
-
-        <android.support.v7.widget.CardView
-            android:layout_marginTop="32dp"
             app:cardBackgroundColor="@android:color/white"
-            app:cardCornerRadius="32dp"
-            android:layout_margin="8dp"
-            app:cardElevation="8dp"
-            app:contentPadding="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <TextView
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/helvetica_bold"
                     android:textColor="@color/colorTextDark"
                     android:textSize="24sp"
-                    android:text="Timeline"
+                    android:text="Events"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <com.airbnb.lottie.LottieAnimationView
-                    app:lottie_fileName="lottie/cycle.json"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"
-                    android:layout_gravity="center"
-                    android:layout_width="164dp"
-                    android:layout_height="164dp" />
+                <LinearLayout
+                    android:layout_marginTop="8dp"
+                    android:padding="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        app:civ_circle_background_color="#398860"
+                        android:src="@drawable/shopping_bag"
+                        android:scaleType="centerCrop"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp" />
+                    <TextView
+                        android:layout_marginStart="20dp"
+                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/helvetica_light"
+                        android:text="Goodie Bag Collection"
+                        android:textSize="19sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
             </LinearLayout>
-        </android.support.v7.widget.CardView>
+        </android.support.design.card.MaterialCardView>
 
     </LinearLayout>
 </ScrollView>
