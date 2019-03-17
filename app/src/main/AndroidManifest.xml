@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-feature
         android:name="android.hardware.nfc"
@@ -20,17 +22,33 @@
         android:hardwareAccelerated="true"
         android:icon="@drawable/appicon"
         android:label="@string/app_name"
-        android:usesCleartextTraffic="true"
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/FullscreenAppTheme"
+        android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activities.GoodieBagCollectionActivity" android:parentActivityName=".Activities.MainActivity" android:label="Goodie Bag Collection" />
-        <activity android:name=".Activities.SleepingPodActivity" android:parentActivityName=".Activities.MainActivity" android:label="Sleeping Pod Booking" />
-        <activity android:name=".Activities.LeeWeeNamActivity" android:parentActivityName=".Activities.MainActivity" android:label="Lee Wee Nam Mobile Access" />
-        <activity android:name=".Activities.HallAccessActivity" android:parentActivityName=".Activities.MainActivity" android:label="Hall Access" />
-        <activity android:name=".Activities.HiveActivity" android:parentActivityName=".Activities.MainActivity" android:label="Hive &amp; Arc Mobile Access" />
+        <activity android:name=".Activities.QRCodeReaderActivity"></activity>
+        <activity
+            android:name=".Activities.GoodieBagCollectionActivity"
+            android:label="Goodie Bag Collection"
+            android:parentActivityName=".Activities.MainActivity" />
+        <activity
+            android:name=".Activities.SleepingPodActivity"
+            android:label="Sleeping Pod Booking"
+            android:parentActivityName=".Activities.MainActivity" />
+        <activity
+            android:name=".Activities.LeeWeeNamActivity"
+            android:label="Lee Wee Nam Mobile Access"
+            android:parentActivityName=".Activities.MainActivity" />
+        <activity
+            android:name=".Activities.HallAccessActivity"
+            android:label="Hall Access"
+            android:parentActivityName=".Activities.MainActivity" />
+        <activity
+            android:name=".Activities.HiveActivity"
+            android:label="Hive &amp; Arc Mobile Access"
+            android:parentActivityName=".Activities.MainActivity" />
         <activity android:name=".Activities.PhoneNumberActivity" />
         <activity android:name=".Activities.MainActivity" />
         <activity

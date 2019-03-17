@@ -1,18 +1,21 @@
 package letswave.co.in.wave.Activities;
 
-import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.os.AsyncTask;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
-import com.journeyapps.barcodescanner.BarcodeEncoder;
+import com.google.zxing.common.BitMatrix;
+
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +29,6 @@ public class LeeWeeNamActivity extends AppCompatActivity {
     @BindView(R.id.leeWeeNamBarCodeImageView)
     ImageView leeWeeNamBarCodeImageView;
 
-    private BarcodeEncoder barcodeEncoder;
     private Unbinder unbinder;
 
     @Override
@@ -45,9 +47,29 @@ public class LeeWeeNamActivity extends AppCompatActivity {
     }
 
     private void initializeComponents() {
-        barcodeEncoder = new BarcodeEncoder();
+        generateBarCode("abcde12345");
+    }
 
-        new GenerateAndRenderBarCode().execute("abcde12345");
+    private void generateBarCode(String content) {
+        try {
+            Glide.with(getApplicationContext()).load(createBarcodeBitmap(content,80,32)).into(leeWeeNamBarCodeImageView);
+        } catch (WriterException e) {
+            Log.v("GEN_BAR", e.getMessage());
+        }
+    }
+
+    private Bitmap createBarcodeBitmap(String data, int width, int height) throws WriterException {
+        MultiFormatWriter writer = new MultiFormatWriter();
+        String finalData = Uri.encode(data);
+        BitMatrix bm = writer.encode(finalData, BarcodeFormat.CODE_128, width, 1);
+        int bmWidth = bm.getWidth();
+        Bitmap imageBitmap = Bitmap.createBitmap(bmWidth, height, Bitmap.Config.ARGB_8888);
+        for (int i = 0; i < bmWidth; i++) {
+            int[] column = new int[height];
+            Arrays.fill(column, bm.get(i, 0) ? Color.BLACK : Color.WHITE);
+            imageBitmap.setPixels(column, 0, 1, i, 0, 1, height);
+        }
+        return imageBitmap;
     }
 
     @Override
@@ -56,23 +78,4 @@ public class LeeWeeNamActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private class GenerateAndRenderBarCode extends AsyncTask<String, Void, Bitmap> {
-
-        @Override
-        protected Bitmap doInBackground(String... strings) {
-            try {
-                return barcodeEncoder.encodeBitmap(strings[0], BarcodeFormat.CODE_128, 1024, 164);
-            } catch (WriterException e) {
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            super.onPostExecute(bitmap);
-            if (bitmap != null && leeWeeNamBarCodeImageView != null)
-                Glide.with(getApplicationContext()).load(bitmap).into(leeWeeNamBarCodeImageView);
-        }
-    }
 }

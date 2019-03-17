@@ -1,9 +1,6 @@
 package letswave.co.in.wave.Fragments;
 
 
-import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -15,9 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
-import com.journeyapps.barcodescanner.BarcodeEncoder;
+
+import net.glxn.qrgen.android.QRCode;
 
 import java.util.Objects;
 
@@ -50,7 +46,6 @@ public class IdentityFragment extends Fragment {
 
     private Unbinder unbinder;
     private View rootView;
-    private BarcodeEncoder barcodeEncoder;
     private User currentUser;
 
     public IdentityFragment() {
@@ -76,27 +71,11 @@ public class IdentityFragment extends Fragment {
     }
 
     private void initializeComponents() {
-        barcodeEncoder = new BarcodeEncoder();
+
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private class GenerateAndRenderQRCode extends AsyncTask<String, Void, Bitmap> {
-
-        @Override
-        protected Bitmap doInBackground(String... strings) {
-            try {
-                return barcodeEncoder.encodeBitmap(strings[0], BarcodeFormat.QR_CODE, 256, 256);
-            } catch (WriterException e) {
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            super.onPostExecute(bitmap);
-            if (bitmap != null && identityCardQRCodeImageView != null)
-                Glide.with(rootView.getContext()).load(bitmap).into(identityCardQRCodeImageView);
-        }
+    private void generateQrCode(String content) {
+        Glide.with(rootView.getContext()).load(QRCode.from(content).withSize(180,180).bitmap()).into(identityCardQRCodeImageView);
     }
 
     @Override
@@ -104,7 +83,7 @@ public class IdentityFragment extends Fragment {
         super.onStart();
         unbinder = ButterKnife.bind(IdentityFragment.this, rootView);
         currentUser = ((MainActivity) Objects.requireNonNull(getActivity())).getCurrentUser();
-        new GenerateAndRenderQRCode().execute(currentUser.getAuthorityIssuedId());
+        generateQrCode(currentUser.getAuthorityIssuedId());
         identityCardUserNameTextView.setText(currentUser.getName());
         identityCardMatricTextView.setText(currentUser.getAuthorityIssuedId());
         identityCardEmailTextView.setText(currentUser.getEmail());
