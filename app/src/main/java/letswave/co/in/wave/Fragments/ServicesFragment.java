@@ -86,8 +86,9 @@ public class ServicesFragment extends Fragment {
 
     @OnClick(R.id.servicesLeeWeeNamMobileAccessLayout)
     public void onLeeWeeNamLayoutPress() {
-        startActivity(new Intent(rootView.getContext(), LeeWeeNamActivity.class));
-    }
+        Intent leeWeeNamIntent = new Intent(rootView.getContext(), LeeWeeNamActivity.class);
+        leeWeeNamIntent.putExtra("USER", currentUser);
+        startActivity(leeWeeNamIntent);    }
 
 
     @OnClick(R.id.servicesSleepingPodBookingLayout)
