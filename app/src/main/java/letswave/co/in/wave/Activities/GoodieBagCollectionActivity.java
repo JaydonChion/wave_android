@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
@@ -37,6 +36,8 @@ public class GoodieBagCollectionActivity extends AppCompatActivity {
     private MaterialDialog materialDialog;
     private RequestQueue requestQueue;
     private User currentUser;
+    private String eventId = "5c8c640383fec557167417a9";
+    private String participantStatusInEvent = "AWAIT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,23 +60,56 @@ public class GoodieBagCollectionActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(getApplicationContext());
     }
 
+    private void fetchParticipantObject() {
+        materialDialog = new MaterialDialog.Builder(GoodieBagCollectionActivity.this)
+                .title(R.string.app_name)
+                .content("Performing Magic :)")
+                .progress(true, 0)
+                .titleColorRes(android.R.color.black)
+                .contentColorRes(R.color.colorTextDark)
+                .show();
+        String requestUrl = baseServerUrl+"/participants/"+eventId+"/"+currentUser.getId();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, requestUrl, null, response -> {
+            try {
+                participantStatusInEvent = response.getString("status");
+                if (participantStatusInEvent.equals("AWAIT")) updateUserStatusInEvent();
+                else {
+                    if (materialDialog!=null && materialDialog.isShowing()) materialDialog.dismiss();
+                    materialDialog = new MaterialDialog.Builder(GoodieBagCollectionActivity.this)
+                            .title(R.string.app_name)
+                            .content("You have already redeemed the Goodie Bag!")
+                            .titleColorRes(android.R.color.black)
+                            .contentColorRes(R.color.colorTextDark)
+                            .positiveText("OKAY")
+                            .positiveColorRes(R.color.colorPrimary)
+                            .show();
+                }
+            } catch (JSONException e) {
+                notifyMessage(e.getMessage());
+            }
+        }, error -> notifyMessage(error.getMessage()));
+        requestQueue.add(jsonObjectRequest);
+    }
+
     private void updateUserStatusInEvent() {
         try {
-            materialDialog = new MaterialDialog.Builder(GoodieBagCollectionActivity.this)
-                    .title(R.string.app_name)
-                    .content("Performing Magic")
-                    .progress(true, 0)
-                    .titleColorRes(android.R.color.black)
-                    .contentColorRes(R.color.colorTextDark)
-                    .show();
             String userId = currentUser.getId();
-            String eventId = "5c8c640383fec557167417a9";
             String requestUrl = baseServerUrl+"/participants?user_id="+userId+"&event_id="+eventId;
             JSONObject putRequestBody = new JSONObject();
             putRequestBody.put("status", "COMPLETED");
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, requestUrl, putRequestBody, response -> {
                 try {
-                    if (response.getString("status").equals("COMPLETED")) notifyMessage("Thank you for using this service on our App!\nStay tuned for more features that make your life easier.");
+                    if (response.getString("status").equals("COMPLETED")) {
+                        if (materialDialog!=null && materialDialog.isShowing()) materialDialog.dismiss();
+                        materialDialog = new MaterialDialog.Builder(GoodieBagCollectionActivity.this)
+                                .title(R.string.app_name)
+                                .content("Thank you for using this service on our App!\nStay tuned for more features that make your life easier.")
+                                .titleColorRes(android.R.color.black)
+                                .contentColorRes(R.color.colorTextDark)
+                                .positiveText("OKAY")
+                                .positiveColorRes(R.color.colorPrimary)
+                                .show();
+                    }
                 } catch (JSONException e) {
                     notifyMessage(e.getMessage());
                 }
@@ -96,12 +130,9 @@ public class GoodieBagCollectionActivity extends AppCompatActivity {
         materialDialog = new MaterialDialog.Builder(GoodieBagCollectionActivity.this)
                 .customView(R.layout.dialog_redeem_goodie_bag, true)
                 .show();
-        Objects.requireNonNull(materialDialog.getCustomView()).findViewById(R.id.goodieBagDialogRedeemButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                materialDialog.dismiss();
-                updateUserStatusInEvent();
-            }
+        Objects.requireNonNull(materialDialog.getCustomView()).findViewById(R.id.goodieBagDialogRedeemButton).setOnClickListener(v -> {
+            materialDialog.dismiss();
+            fetchParticipantObject();
         });
     }
 

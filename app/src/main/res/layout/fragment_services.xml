@@ -63,8 +63,8 @@
                         android:layout_height="70dp" />
                     <TextView
                         android:layout_marginStart="20dp"
-                        android:textColor="@android:color/black"
-                        android:fontFamily="@font/helvetica_light"
+                        android:textColor="@color/colorTextDark"
+                        android:fontFamily="@font/helvetica_bold"
                         android:text="Hive &amp; Arc Mobile Access"
                         android:textSize="19sp"
                         android:layout_width="wrap_content"
@@ -91,8 +91,8 @@
                         android:layout_height="70dp" />
                     <TextView
                         android:layout_marginStart="20dp"
-                        android:textColor="@android:color/black"
-                        android:fontFamily="@font/helvetica_light"
+                        android:textColor="@color/colorTextDark"
+                        android:fontFamily="@font/helvetica_bold"
                         android:text="Lee Wee Nam Mobile Access"
                         android:textSize="19sp"
                         android:layout_width="wrap_content"
@@ -119,8 +119,8 @@
                         android:layout_height="70dp" />
                     <TextView
                         android:layout_marginStart="20dp"
-                        android:textColor="@android:color/black"
-                        android:fontFamily="@font/helvetica_light"
+                        android:textColor="@color/colorTextDark"
+                        android:fontFamily="@font/helvetica_bold"
                         android:text="Sleeping Pod Booking"
                         android:textSize="19sp"
                         android:layout_width="wrap_content"
@@ -147,8 +147,8 @@
                         android:layout_height="70dp" />
                     <TextView
                         android:layout_marginStart="20dp"
-                        android:textColor="@android:color/black"
-                        android:fontFamily="@font/helvetica_light"
+                        android:textColor="@color/colorTextDark"
+                        android:fontFamily="@font/helvetica_bold"
                         android:text="Hall Access"
                         android:textSize="19sp"
                         android:layout_width="wrap_content"
@@ -199,8 +199,8 @@
                         android:layout_height="70dp" />
                     <TextView
                         android:layout_marginStart="20dp"
-                        android:textColor="@android:color/black"
-                        android:fontFamily="@font/helvetica_light"
+                        android:textColor="@color/colorTextDark"
+                        android:fontFamily="@font/helvetica_bold"
                         android:text="Goodie Bag Collection"
                         android:textSize="19sp"
                         android:layout_width="wrap_content"
