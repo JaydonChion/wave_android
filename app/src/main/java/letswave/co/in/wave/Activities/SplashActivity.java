@@ -1,5 +1,6 @@
 package letswave.co.in.wave.Activities;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -20,8 +21,15 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import org.json.JSONException;
+
+import java.util.List;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -68,12 +76,36 @@ public class SplashActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         SharedPreferences prefs = getSharedPreferences("SP", MODE_PRIVATE);
         email = prefs.getString("email", null);
-        if (email==null) {
-            new Handler().postDelayed(() -> {
-                startActivity(new Intent(SplashActivity.this, SignInActivity.class));
-                finish();
-            }, SPLASH_DELAY_LENGTH);
-        } else fetchCurrentUser();
+        Dexter.withActivity(SplashActivity.this)
+                .withPermissions(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.NFC,
+                        Manifest.permission.VIBRATE,
+                        Manifest.permission.INTERNET
+                ).withListener(new MultiplePermissionsListener() {
+            @Override
+            public void onPermissionsChecked(MultiplePermissionsReport report) {
+                if (report.areAllPermissionsGranted()) {
+                    if (email==null) {
+                        new Handler().postDelayed(() -> {
+                            startActivity(new Intent(SplashActivity.this, SignInActivity.class));
+                            finish();
+                        }, SPLASH_DELAY_LENGTH);
+                    } else fetchCurrentUser();
+                } else if (report.isAnyPermissionPermanentlyDenied()) {
+                    Snackbar.make(splashLogoImageView, "Please provide all the required permissions to continue", Snackbar.LENGTH_INDEFINITE)
+                            .setAction("RETRY", v -> initializeComponents()).setActionTextColor(Color.YELLOW)
+                            .show();
+                }
+            }
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                token.continuePermissionRequest();
+            }
+        }).withErrorListener(error -> Snackbar.make(splashLogoImageView, error.toString(), Snackbar.LENGTH_INDEFINITE).setAction("RETRY", v -> initializeComponents()).setActionTextColor(Color.YELLOW).show()).check();
     }
 
     private void fetchCurrentUser() {

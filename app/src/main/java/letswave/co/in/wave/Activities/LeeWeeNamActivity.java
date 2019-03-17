@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -34,6 +35,7 @@ public class LeeWeeNamActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_lee_wee_nam);
 
         initializeViews();
@@ -52,7 +54,7 @@ public class LeeWeeNamActivity extends AppCompatActivity {
 
     private void generateBarCode(String content) {
         try {
-            Glide.with(getApplicationContext()).load(createBarcodeBitmap(content,80,32)).into(leeWeeNamBarCodeImageView);
+            Glide.with(getApplicationContext()).load(createBarcodeBitmap(content,96,30)).into(leeWeeNamBarCodeImageView);
         } catch (WriterException e) {
             Log.v("GEN_BAR", e.getMessage());
         }
