@@ -13,14 +13,72 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:textSize="14sp"
-            android:textColor="@color/colorTextLight"
-            android:text="Available in Nanyang Technological University"
-            android:fontFamily="@font/helvetica_bold"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:letterSpacing="0"
+            android:text="Available in Nanyang Technological University"
+            android:textAllCaps="true"
+            android:textColor="@color/colorTextLight"
+            android:textSize="10sp" />
+
+        <android.support.design.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="8dp"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Events"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="24sp" />
+
+                <LinearLayout
+                    android:id="@+id/servicesGoodieBagCollectionLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/shopping_bag"
+                        app:civ_circle_background_color="#398860" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Goodie Bag Collection"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.design.card.MaterialCardView>
 
         <android.support.design.card.MaterialCardView
             android:layout_margin="8dp"
@@ -36,15 +94,16 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    android:fontFamily="@font/helvetica_bold"
-                    android:textColor="@color/colorTextDark"
-                    android:textSize="24sp"
+                    android:fontFamily="@font/roboto"
                     android:text="Services"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="24sp" />
 
 
                 <LinearLayout
@@ -55,20 +114,24 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <de.hdodenhof.circleimageview.CircleImageView
-                        app:civ_circle_background_color="#c792f5"
-                        android:src="@drawable/id_card"
-                        android:scaleType="centerCrop"
                         android:layout_width="70dp"
-                        android:layout_height="70dp" />
+                        android:layout_height="70dp"
+                        android:cropToPadding="false"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/id_card"
+                        app:civ_circle_background_color="#c792f5" />
+
                     <TextView
-                        android:layout_marginStart="20dp"
-                        android:textColor="@color/colorTextDark"
-                        android:fontFamily="@font/helvetica_bold"
-                        android:text="Hive &amp; Arc Mobile Access"
-                        android:textSize="19sp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Hive &amp; Arc Mobile Access"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <View
@@ -89,14 +152,16 @@
                         android:scaleType="centerCrop"
                         android:layout_width="70dp"
                         android:layout_height="70dp" />
+
                     <TextView
-                        android:layout_marginStart="20dp"
-                        android:textColor="@color/colorTextDark"
-                        android:fontFamily="@font/helvetica_bold"
-                        android:text="Lee Wee Nam Mobile Access"
-                        android:textSize="19sp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Lee Wee Nam Mobile Access"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <View
@@ -117,14 +182,16 @@
                         android:scaleType="centerCrop"
                         android:layout_width="70dp"
                         android:layout_height="70dp" />
+
                     <TextView
-                        android:layout_marginStart="20dp"
-                        android:textColor="@color/colorTextDark"
-                        android:fontFamily="@font/helvetica_bold"
-                        android:text="Sleeping Pod Booking"
-                        android:textSize="19sp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Sleeping Pod Booking"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <View
@@ -145,67 +212,18 @@
                         android:scaleType="centerCrop"
                         android:layout_width="70dp"
                         android:layout_height="70dp" />
+
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:textColor="@color/colorTextDark"
-                        android:fontFamily="@font/helvetica_bold"
+                        android:fontFamily="@font/roboto_medium"
                         android:text="Hall Access"
-                        android:textSize="19sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
-            </LinearLayout>
-        </android.support.design.card.MaterialCardView>
-
-        <android.support.design.card.MaterialCardView
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            app:contentPadding="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardUseCompatPadding="true"
-            app:cardBackgroundColor="@android:color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/helvetica_bold"
-                    android:textColor="@color/colorTextDark"
-                    android:textSize="24sp"
-                    android:text="Events"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <LinearLayout
-                    android:id="@+id/servicesGoodieBagCollectionLayout"
-                    android:layout_marginTop="8dp"
-                    android:padding="8dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        app:civ_circle_background_color="#398860"
-                        android:src="@drawable/shopping_bag"
-                        android:scaleType="centerCrop"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp" />
-                    <TextView
-                        android:layout_marginStart="20dp"
+                        android:textAllCaps="true"
                         android:textColor="@color/colorTextDark"
-                        android:fontFamily="@font/helvetica_bold"
-                        android:text="Goodie Bag Collection"
-                        android:textSize="19sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:textSize="14sp" />
                 </LinearLayout>
+
             </LinearLayout>
         </android.support.design.card.MaterialCardView>
 

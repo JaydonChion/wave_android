@@ -1,80 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
     tools:context=".Activities.GoodieBagCollectionActivity">
-    <LinearLayout
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/goodieBagCollectionToolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="27dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/roboto"
+        android:text="Welfare Services Club"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextDark"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Goodie Bag Collection"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextDark"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <ImageView
+        android:id="@+id/goodieBagCameraImageView"
+        android:layout_width="114dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:alpha="0.8"
+        android:src="@drawable/photo_camera"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/roboto"
         android:gravity="center"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:text="Scan to redeem goodie bag"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextLight"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/goodieBagCollectionToolbar"
-            android:elevation="8dp"
-            android:background="@color/colorPrimary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </android.support.v7.widget.Toolbar>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="320dp"
+        android:layout_height="288dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/goodieBagCollectionToolbar"
+        app:srcCompat="@drawable/rainbow" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            app:civ_circle_background_color="#5ac8fa"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="80dp"
-            android:src="@drawable/rainbow"
-            android:layout_width="196dp"
-            android:layout_height="200dp" />
-
-        <TextView
-            android:layout_marginTop="32dp"
-            android:textColor="@color/colorTextDark"
-            android:textSize="20sp"
-            android:fontFamily="@font/helvetica_bold"
-            android:textAllCaps="true"
-            android:text="Welfare Services Club"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:fontFamily="@font/helvetica_light"
-            android:textColor="@color/colorTextDark"
-            android:layout_marginTop="16dp"
-            android:textSize="18sp"
-            android:gravity="center"
-            android:textAllCaps="true"
-            android:text="Friends of children"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:fontFamily="@font/helvetica_light"
-            android:textColor="@color/colorTextDark"
-            android:textSize="16sp"
-            android:layout_marginTop="2dp"
-            android:text="Goodie Bag Collection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ImageView
-            android:id="@+id/goodieBagCameraImageView"
-            android:layout_marginTop="64dp"
-            android:src="@drawable/photo_camera"
-            android:layout_width="48dp"
-            android:layout_height="48dp" />
-
-        <TextView
-            android:layout_marginTop="8dp"
-            android:textColor="@color/colorTextLight"
-            android:fontFamily="@font/helvetica_bold"
-            android:textSize="14sp"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:text="Scan to redeem goodie bag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-</ScrollView>
+</android.support.constraint.ConstraintLayout>

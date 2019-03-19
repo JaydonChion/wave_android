@@ -1,6 +1,7 @@
 package letswave.co.in.wave.Activities;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -8,6 +9,7 @@ import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
+import android.nfc.NfcManager;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.Snackbar;
@@ -30,6 +32,7 @@ public class HiveActivity extends AppCompatActivity implements NfcAdapter.Create
 
     private Unbinder unbinder;
     private NfcAdapter adapter ;
+    private NfcManager manager;
     private static int  MY_PERMISSIONS_REQUEST_READ_CONTACTS =119;
     static String message ="";
 
@@ -40,6 +43,8 @@ public class HiveActivity extends AppCompatActivity implements NfcAdapter.Create
 
         initializeViews();
         initializeComponents();
+        manager =  (NfcManager) getApplicationContext().getSystemService(Context.NFC_SERVICE);
+        adapter= manager.getDefaultAdapter();
 
         if (checkNFC()) startNfcSettingsActivity();
     }
@@ -77,8 +82,8 @@ public class HiveActivity extends AppCompatActivity implements NfcAdapter.Create
 
     protected void startNfcSettingsActivity() {
         Snackbar.make(hiveToolbar, "Please enable NFC", Snackbar.LENGTH_INDEFINITE)
-            .setAction("SETTINGS", v -> startActivity(new Intent(android.provider.Settings.ACTION_NFC_SETTINGS))).setActionTextColor(Color.YELLOW)
-            .show();
+                .setAction("SETTINGS", v -> startActivity(new Intent(android.provider.Settings.ACTION_NFC_SETTINGS))).setActionTextColor(Color.YELLOW)
+                .show();
     }
 
     @Override

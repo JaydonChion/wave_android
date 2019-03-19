@@ -1,66 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.LeeWeeNamActivity">
-    <LinearLayout
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/leeWeeNamToolbar"
-            android:elevation="8dp"
-            android:layout_marginBottom="64dp"
-            android:background="@color/colorPrimary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </android.support.v7.widget.Toolbar>
 
-        <android.support.design.card.MaterialCardView
-            app:cardBackgroundColor="@android:color/white"
-            app:cardCornerRadius="2dp"
-            android:layout_margin="16dp"
-            app:cardElevation="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_gravity="center"
-                android:id="@+id/leeWeeNamBarCodeImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </android.support.design.card.MaterialCardView>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/leeWeeNamToolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></android.support.v7.widget.Toolbar>
+
+    <android.support.design.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="373dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/leeWeeNamToolbar">
 
         <ImageView
-            android:scaleType="centerCrop"
-            android:layout_marginTop="80dp"
-            android:src="@drawable/books"
-            android:layout_width="196dp"
-            android:layout_height="196dp" />
-
-        <TextView
-            android:layout_marginTop="32dp"
-            android:textColor="@color/colorTextDark"
-            android:textSize="20sp"
-            android:fontFamily="@font/helvetica_bold"
-            android:text="Lee Wee Nam Mobile Access"
+            android:id="@+id/leeWeeNamBarCodeImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+    </android.support.design.card.MaterialCardView>
 
-        <TextView
-            android:fontFamily="@font/helvetica_light"
-            android:textColor="@color/colorTextDark"
-            android:layout_marginTop="16dp"
-            android:textSize="18sp"
-            android:gravity="center"
-            android:textAllCaps="true"
-            android:text="Scan the barcode\nunder the barcode reader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/roboto"
+        android:text="Lee Wee Nam Mobile Access"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextDark"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    </LinearLayout>
-</ScrollView>
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="322dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="Scan the barcode\nunder the barcode reader"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextDark"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="337dp"
+        android:layout_height="343dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/access1" />
+
+
+</android.support.constraint.ConstraintLayout>

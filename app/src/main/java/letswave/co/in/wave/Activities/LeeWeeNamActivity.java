@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.zxing.BarcodeFormat;
@@ -44,6 +45,8 @@ public class LeeWeeNamActivity extends AppCompatActivity {
     private static final int RC_WRITE_PERM = 511;
     private Unbinder unbinder;
     private User currentUser;
+    static int currentBrightnessValue = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +93,17 @@ public class LeeWeeNamActivity extends AppCompatActivity {
     }
 
     private void setScreenBrightness() {
+
+        //get current brightness
+        try {
+            currentBrightnessValue =Settings.System.getInt(
+                    getApplicationContext().getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS);
+        } catch (Settings.SettingNotFoundException e) {
+            currentBrightnessValue = 100;
+        }
+
+
         Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 255);
         WindowManager.LayoutParams layoutpars = getWindow().getAttributes();
         layoutpars.screenBrightness = 1f;
@@ -138,6 +152,47 @@ public class LeeWeeNamActivity extends AppCompatActivity {
     protected void onDestroy() {
         unbinder.unbind();
         super.onDestroy();
+        restorebrightness();
     }
+
+
+
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        restorebrightness();
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        restorebrightness();
+    }
+
+
+
+    private void restorebrightness(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if(Settings.System.canWrite(getApplicationContext().getApplicationContext())) {
+
+                //increase brightness programmatically
+                Settings.System.putInt(
+                        getApplicationContext().getApplicationContext().getContentResolver(),
+                        Settings.System.SCREEN_BRIGHTNESS,
+                        currentBrightnessValue
+                );
+            }else{
+
+
+            }
+        }
+    }
+
 
 }
