@@ -45,7 +45,6 @@ public class HiveActivity extends AppCompatActivity implements NfcAdapter.Create
         initializeComponents();
         manager =  (NfcManager) getApplicationContext().getSystemService(Context.NFC_SERVICE);
         adapter= manager.getDefaultAdapter();
-
         if (checkNFC()) startNfcSettingsActivity();
     }
 
@@ -74,7 +73,7 @@ public class HiveActivity extends AppCompatActivity implements NfcAdapter.Create
                         new String[]{Manifest.permission.NFC},
                         MY_PERMISSIONS_REQUEST_READ_CONTACTS);
             }
-        } else {
+        } else if(adapter!=null) {
             return !adapter.isEnabled();
         }
         return false;
