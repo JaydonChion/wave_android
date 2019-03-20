@@ -1,79 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView6"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.HallAccessActivity">
-    <LinearLayout
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/hallAccessToolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></android.support.v7.widget.Toolbar>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circleImageView2"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="148dp"
+        android:layout_marginEnd="8dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/house"
+        app:civ_circle_background_color="#5ac8fa"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hallAccessToolbar" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/roboto"
+        android:text="Hall Access Service"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextDark"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/circleImageView2" />
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="243dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/roboto_medium"
         android:gravity="center"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:text="Access your dormitories with wave, no more key fob!"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextDark"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/hallAccessToolbar"
-            android:elevation="8dp"
-            android:background="@color/colorPrimary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </android.support.v7.widget.Toolbar>
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="(To be dated)"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextDark"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            app:civ_circle_background_color="#5ac8fa"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="100dp"
-            android:src="@drawable/house"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/website"
+        android:textColor="@color/colorTextDark"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView28"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:layout_marginTop="32dp"
-            android:textColor="@color/colorTextDark"
-            android:textSize="20sp"
-            android:fontFamily="@font/helvetica_bold"
-            android:textAllCaps="true"
-            android:text="Hall Access Service"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="@string/website_desc"
+        android:textColor="@color/colorTextLight"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:fontFamily="@font/helvetica_light"
-            android:textColor="@color/colorTextDark"
-            android:layout_marginTop="16dp"
-            android:textSize="18sp"
-            android:gravity="center"
-            android:text="Access your dormitories with wave, no more key fob!"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:fontFamily="@font/helvetica_light"
-            android:textColor="@color/colorTextDark"
-            android:textSize="16sp"
-            android:layout_marginTop="2dp"
-            android:text="To be dated"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:textColor="@color/colorTextDark"
-            android:textSize="12sp"
-            android:layout_marginTop="50dp"
-            android:layout_gravity="center"
-            android:text="@string/website"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:textColor="@color/colorTextLight"
-            android:fontFamily="sans-serif-light"
-            android:textSize="14sp"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:text="@string/website_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-</ScrollView>
+</android.support.constraint.ConstraintLayout>

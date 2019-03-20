@@ -1,78 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.SleepingPodActivity">
-    <LinearLayout
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/sleepingPodToolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></android.support.v7.widget.Toolbar>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circleImageView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="148dp"
+        android:layout_marginEnd="8dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bed"
+        app:civ_circle_background_color="#fe8b8e"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sleepingPodToolbar" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="283dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/roboto"
+        android:text="Sleeping Pod Booking Service"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextDark"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/roboto_medium"
         android:gravity="center"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:text="Book &amp; check in to a sleeping pod"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextDark"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/sleepingPodToolbar"
-            android:elevation="8dp"
-            android:background="@color/colorPrimary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </android.support.v7.widget.Toolbar>
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Coming soon (end July 2019)"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextDark"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            app:civ_circle_background_color="#fe8b8e"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="100dp"
-            android:src="@drawable/bed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/website"
+        android:textColor="@color/colorTextDark"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView23"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:layout_marginTop="32dp"
-            android:textColor="@color/colorTextDark"
-            android:textSize="20sp"
-            android:fontFamily="@font/helvetica_bold"
-            android:textAllCaps="true"
-            android:text="Sleeping Pod Booking Service"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="369dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="@string/website_desc"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextLight"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:fontFamily="@font/helvetica_light"
-            android:textColor="@color/colorTextDark"
-            android:layout_marginTop="16dp"
-            android:textSize="18sp"
-            android:gravity="center"
-            android:text="Book &amp; check in to a sleeping pod with wave."
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:fontFamily="@font/helvetica_light"
-            android:textColor="@color/colorTextDark"
-            android:textSize="16sp"
-            android:layout_marginTop="2dp"
-            android:text="Coming soon (end July 2019)"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:textColor="@color/colorTextDark"
-            android:textSize="12sp"
-            android:layout_marginTop="50dp"
-            android:layout_gravity="center"
-            android:text="@string/website"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:textColor="@color/colorTextLight"
-            android:fontFamily="sans-serif-light"
-            android:textSize="14sp"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:text="@string/website_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-</ScrollView>
+</android.support.constraint.ConstraintLayout>
