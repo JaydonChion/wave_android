@@ -40,7 +40,7 @@ public class AppNotificationService extends FirebaseMessagingService {
 
     private void sendNotification(AppNotification appNotification) {
         NotificationCompat.BigTextStyle style = new NotificationCompat.BigTextStyle();
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.appicon);
         Uri defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -57,7 +57,8 @@ public class AppNotificationService extends FirebaseMessagingService {
         }
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.appicon)
+                .setLargeIcon(bitmap)
                 .setContentTitle(appNotification.getTitle())
                 .setAutoCancel(true)
                 .setSound(defaultSound)
@@ -68,7 +69,8 @@ public class AppNotificationService extends FirebaseMessagingService {
                 .setWhen(System.currentTimeMillis())
                 .setPriority(Notification.PRIORITY_MAX);
         if (appNotification.getImageUrl()==null) notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.appicon)
+                .setLargeIcon(bitmap)
                 .setContentTitle(appNotification.getTitle())
                 .setAutoCancel(true)
                 .setSound(defaultSound)
