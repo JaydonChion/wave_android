@@ -74,7 +74,7 @@ public class LeeWeeNamActivity extends AppCompatActivity {
 
     private void generateBarCode(String content) {
         try {
-            Glide.with(getApplicationContext()).load(createBarcodeBitmap(content,96,30)).into(leeWeeNamBarCodeImageView);
+            Glide.with(getApplicationContext()).load(createBarcodeBitmap(content,370,93)).into(leeWeeNamBarCodeImageView);
         } catch (WriterException e) {
             Log.v("GEN_BAR", e.getMessage());
         }
@@ -95,7 +95,6 @@ public class LeeWeeNamActivity extends AppCompatActivity {
     }
 
     private void setScreenBrightness() {
-
         //get current brightness
         try {
             currentBrightnessValue =Settings.System.getInt(
@@ -158,22 +157,15 @@ public class LeeWeeNamActivity extends AppCompatActivity {
     }
 
 
-
-
-
     @Override
     public void onPause() {
         super.onPause();
-
         restorebrightness();
-
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
         restorebrightness();
     }
 
@@ -182,16 +174,12 @@ public class LeeWeeNamActivity extends AppCompatActivity {
     private void restorebrightness(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if(Settings.System.canWrite(getApplicationContext().getApplicationContext())) {
-
                 //increase brightness programmatically
                 Settings.System.putInt(
                         getApplicationContext().getApplicationContext().getContentResolver(),
                         Settings.System.SCREEN_BRIGHTNESS,
                         currentBrightnessValue
                 );
-            }else{
-
-
             }
         }
     }
