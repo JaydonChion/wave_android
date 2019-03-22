@@ -7,12 +7,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 
 import org.json.JSONException;
@@ -33,6 +35,8 @@ public class QRCodeReaderActivity extends AppCompatActivity {
     QRCodeReaderView qrCodeReaderView;
     @BindString(R.string.domain)
     String baseServerUrl;
+    @BindView(R.id.qrCodeReaderActivityLogoImageView)
+    ImageView qrCodeReaderActivityLogoImageView;
 
     private Unbinder unbinder;
     private MaterialDialog materialDialog;
@@ -58,12 +62,13 @@ public class QRCodeReaderActivity extends AppCompatActivity {
         currentUser = getIntent().getParcelableExtra("USER");
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
+        Glide.with(getApplicationContext()).load(R.drawable.logo).into(qrCodeReaderActivityLogoImageView);
         qrCodeReaderView.setQRDecodingEnabled(true);
         qrCodeReaderView.setBackCamera();
         qrCodeReaderView.setOnQRCodeReadListener((text, points) -> {
 
-            if ((materialDialog==null || !materialDialog.isShowing())) {
-                if((text.equals("https://wavenow.wixsite.com/wave"))) {
+            if ((materialDialog == null || !materialDialog.isShowing())) {
+                if ((text.equals("https://wavenow.wixsite.com/wave"))) {
                     vibrator.vibrate(500);
                     materialDialog = new MaterialDialog.Builder(QRCodeReaderActivity.this)
                             .customView(R.layout.dialog_redeem_goodie_bag, true)
@@ -73,7 +78,7 @@ public class QRCodeReaderActivity extends AppCompatActivity {
                         fetchParticipantObject();
                     });
 
-                }else{
+                } else {
                     vibrator.vibrate(500);
                     materialDialog = new MaterialDialog.Builder(QRCodeReaderActivity.this)
                             .title(R.string.app_name)
@@ -156,8 +161,7 @@ public class QRCodeReaderActivity extends AppCompatActivity {
             requestQueue.add(jsonObjectRequest);
         } catch (JSONException e) {
             notifyMessage(e.getMessage());
-        }
-        finally {
+        } finally {
             qrCodeReaderView.startCamera();
         }
     }

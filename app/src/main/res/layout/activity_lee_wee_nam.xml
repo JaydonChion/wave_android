@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".Activities.LeeWeeNamActivity">
 
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/leeWeeNamToolbar"
         android:layout_width="0dp"
@@ -16,7 +15,7 @@
         android:elevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></android.support.v7.widget.Toolbar>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.design.card.MaterialCardView
         android:id="@+id/materialCardView"
@@ -72,7 +71,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/leeWeeNamContentImageView"
         android:layout_width="337dp"
         android:layout_height="343dp"
         android:layout_marginStart="8dp"
@@ -81,7 +80,7 @@
         app:layout_constraintBottom_toTopOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/access1" />
+        tools:src="@drawable/access1" />
 
 
 </android.support.constraint.ConstraintLayout>

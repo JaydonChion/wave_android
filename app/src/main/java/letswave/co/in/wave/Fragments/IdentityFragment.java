@@ -75,7 +75,7 @@ public class IdentityFragment extends Fragment {
     }
 
     private void generateQrCode(String content) {
-        Glide.with(rootView.getContext()).load(QRCode.from(content).withSize(180,180).bitmap()).into(identityCardQRCodeImageView);
+        Glide.with(rootView.getContext()).load(QRCode.from(content).withSize(300,300).bitmap()).into(identityCardQRCodeImageView);
     }
 
     @Override

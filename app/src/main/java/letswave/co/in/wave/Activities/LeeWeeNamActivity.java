@@ -19,7 +19,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.zxing.BarcodeFormat;
@@ -41,6 +40,8 @@ public class LeeWeeNamActivity extends AppCompatActivity {
     Toolbar leeWeeNamToolbar;
     @BindView(R.id.leeWeeNamBarCodeImageView)
     ImageView leeWeeNamBarCodeImageView;
+    @BindView(R.id.leeWeeNamContentImageView)
+    ImageView leeWeeNamContentImageView;
 
     private static final int RC_WRITE_PERM = 511;
     private Unbinder unbinder;
@@ -62,6 +63,7 @@ public class LeeWeeNamActivity extends AppCompatActivity {
         unbinder = ButterKnife.bind(LeeWeeNamActivity.this);
         setSupportActionBar(leeWeeNamToolbar);
         leeWeeNamToolbar.setTitleTextColor(Color.WHITE);
+        Glide.with(getApplicationContext()).load(R.drawable.access1).into(leeWeeNamContentImageView);
     }
 
     private void initializeComponents() {

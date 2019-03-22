@@ -9,8 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -34,6 +38,7 @@ public class GoodieBagCollectionActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private User currentUser;
     private String eventId = "5c8c640383fec557167417a9";
+    private boolean participantCollected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,7 @@ public class GoodieBagCollectionActivity extends AppCompatActivity {
     private void initializeComponents() {
         currentUser = getIntent().getParcelableExtra("USER");
         requestQueue = Volley.newRequestQueue(getApplicationContext());
+        fetchParticipant(currentUser.getId());
     }
 
     private void notifyMessage(String message) {
@@ -63,9 +69,36 @@ public class GoodieBagCollectionActivity extends AppCompatActivity {
 
     @OnClick(R.id.goodieBagCameraImageView)
     public void onCameraImageViewPress() {
-        Intent qrCodeActivityIntent = new Intent(GoodieBagCollectionActivity.this, QRCodeReaderActivity.class);
-        qrCodeActivityIntent.putExtra("USER", currentUser);
-        startActivity(qrCodeActivityIntent);
+        if (participantCollected) {
+            if (materialDialog != null && materialDialog.isShowing()) materialDialog.dismiss();
+            materialDialog = new MaterialDialog.Builder(GoodieBagCollectionActivity.this)
+                    .title(R.string.app_name)
+                    .content("You have already redeemed the Goodie Bag!")
+                    .titleColorRes(android.R.color.black)
+                    .contentColorRes(R.color.colorTextDark)
+                    .positiveText("OKAY")
+                    .positiveColorRes(R.color.colorPrimary)
+                    .onAny((dialog, which) -> finish())
+                    .show();
+
+        } else {
+            Intent qrCodeActivityIntent = new Intent(GoodieBagCollectionActivity.this, QRCodeReaderActivity.class);
+            qrCodeActivityIntent.putExtra("USER", currentUser);
+            startActivity(qrCodeActivityIntent);
+        }
+    }
+
+    private void fetchParticipant(String userId) {
+        String requestUrl = baseServerUrl + "/participants/" + eventId + "/" + userId;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, requestUrl, null, response -> {
+            try {
+                String participantStatusInEvent = response.getString("status");
+                if (participantStatusInEvent.equals("COMPLETED")) participantCollected=true;
+            } catch (JSONException e) {
+                notifyMessage(e.getMessage());
+            }
+        }, error -> notifyMessage(error.getMessage()));
+        requestQueue.add(jsonObjectRequest);
     }
 
     @Override
