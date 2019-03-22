@@ -61,15 +61,30 @@ public class QRCodeReaderActivity extends AppCompatActivity {
         qrCodeReaderView.setQRDecodingEnabled(true);
         qrCodeReaderView.setBackCamera();
         qrCodeReaderView.setOnQRCodeReadListener((text, points) -> {
-            if (materialDialog==null || !materialDialog.isShowing()) {
-                vibrator.vibrate(500);
-                materialDialog = new MaterialDialog.Builder(QRCodeReaderActivity.this)
-                        .customView(R.layout.dialog_redeem_goodie_bag, true)
-                        .show();
-                Objects.requireNonNull(materialDialog.getCustomView()).findViewById(R.id.goodieBagDialogRedeemButton).setOnClickListener(v -> {
-                    materialDialog.dismiss();
-                    fetchParticipantObject();
-                });
+
+            if ((materialDialog==null || !materialDialog.isShowing())) {
+                if((text.equals("https://wavenow.wixsite.com/wave"))) {
+                    vibrator.vibrate(500);
+                    materialDialog = new MaterialDialog.Builder(QRCodeReaderActivity.this)
+                            .customView(R.layout.dialog_redeem_goodie_bag, true)
+                            .show();
+                    Objects.requireNonNull(materialDialog.getCustomView()).findViewById(R.id.goodieBagDialogRedeemButton).setOnClickListener(v -> {
+                        materialDialog.dismiss();
+                        fetchParticipantObject();
+                    });
+
+                }else{
+                    vibrator.vibrate(500);
+                    materialDialog = new MaterialDialog.Builder(QRCodeReaderActivity.this)
+                            .title(R.string.app_name)
+                            .content("Invalid QR code, please check with the booth assistants")
+                            .titleColorRes(android.R.color.black)
+                            .contentColorRes(R.color.colorTextDark)
+                            .positiveText("OKAY")
+                            .positiveColorRes(R.color.colorPrimary)
+                            .onAny((dialog, which) -> finish())
+                            .show();
+                }
             }
         });
     }

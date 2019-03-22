@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/roboto"
+            android:fontFamily="@font/roboto_medium"
             android:letterSpacing="0"
             android:text="Available in Nanyang Technological University"
             android:textAllCaps="true"
@@ -68,11 +68,11 @@
                         app:civ_circle_background_color="#398860" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="199dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="Goodie Bag Collection"
+                        android:text="Friends of children Goodie Bag Collection"
                         android:textAllCaps="true"
                         android:textColor="@color/colorTextDark"
                         android:textSize="14sp" />
@@ -184,7 +184,7 @@
                         android:layout_height="70dp" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:fontFamily="@font/roboto_medium"
@@ -192,6 +192,13 @@
                         android:textAllCaps="true"
                         android:textColor="@color/colorTextDark"
                         android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="73dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/comingsoon" />
                 </LinearLayout>
 
                 <View
@@ -214,7 +221,7 @@
                         android:layout_height="70dp" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:fontFamily="@font/roboto_medium"
@@ -222,6 +229,13 @@
                         android:textAllCaps="true"
                         android:textColor="@color/colorTextDark"
                         android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="73dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/comingsoon" />
                 </LinearLayout>
 
             </LinearLayout>
