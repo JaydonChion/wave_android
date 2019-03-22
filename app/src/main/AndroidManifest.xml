@@ -27,34 +27,34 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".Activities.QRCodeReaderActivity" />
+        <activity android:name="com.wave.digitalidentity.Activities.QRCodeReaderActivity" />
         <activity
-            android:name=".Activities.GoodieBagCollectionActivity"
+            android:name="com.wave.digitalidentity.Activities.GoodieBagCollectionActivity"
             android:label="Goodie Bag Collection"
-            android:parentActivityName=".Activities.MainActivity" />
+            android:parentActivityName="com.wave.digitalidentity.Activities.MainActivity" />
         <activity
-            android:name=".Activities.SleepingPodActivity"
+            android:name="com.wave.digitalidentity.Activities.SleepingPodActivity"
             android:label="Sleeping Pod Booking"
-            android:parentActivityName=".Activities.MainActivity" />
+            android:parentActivityName="com.wave.digitalidentity.Activities.MainActivity" />
         <activity
-            android:name=".Activities.LeeWeeNamActivity"
+            android:name="com.wave.digitalidentity.Activities.LeeWeeNamActivity"
             android:label="Lee Wee Nam Mobile Access"
-            android:parentActivityName=".Activities.MainActivity" />
+            android:parentActivityName="com.wave.digitalidentity.Activities.MainActivity" />
         <activity
-            android:name=".Activities.HallAccessActivity"
+            android:name="com.wave.digitalidentity.Activities.HallAccessActivity"
             android:label="Hall Access"
-            android:parentActivityName=".Activities.MainActivity" />
+            android:parentActivityName="com.wave.digitalidentity.Activities.MainActivity" />
         <activity
-            android:name=".Activities.HiveActivity"
+            android:name="com.wave.digitalidentity.Activities.HiveActivity"
             android:label="Hive &amp; Arc Mobile Access"
-            android:parentActivityName=".Activities.MainActivity" />
-        <activity android:name=".Activities.PhoneNumberActivity" />
-        <activity android:name=".Activities.MainActivity" />
+            android:parentActivityName="com.wave.digitalidentity.Activities.MainActivity" />
+        <activity android:name="com.wave.digitalidentity.Activities.PhoneNumberActivity" />
+        <activity android:name="com.wave.digitalidentity.Activities.MainActivity" />
         <activity
-            android:name=".Activities.SignUpActivity"
-            android:parentActivityName=".Activities.SignInActivity" />
-        <activity android:name=".Activities.SignInActivity" />
-        <activity android:name=".Activities.SplashActivity">
+            android:name="com.wave.digitalidentity.Activities.SignUpActivity"
+            android:parentActivityName="com.wave.digitalidentity.Activities.SignInActivity" />
+        <activity android:name="com.wave.digitalidentity.Activities.SignInActivity" />
+        <activity android:name="com.wave.digitalidentity.Activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -62,12 +62,12 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".Services.AppNotificationService">
+        <service android:name="com.wave.digitalidentity.Services.AppNotificationService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-        <service android:name=".Services.FirebaseInstanceService" >
+        <service android:name="com.wave.digitalidentity.Services.FirebaseInstanceService" >
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>

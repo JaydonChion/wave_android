@@ -8,26 +8,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1045980237193:android:468979f0b1d69c35",
+        "mobilesdk_app_id": "1:1045980237193:android:c2f5a8f6e110cf19",
         "android_client_info": {
-          "package_name": "letswave.co.in.wave"
+          "package_name": "com.wave.digitalidentity"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1045980237193-j7ve35paeidhf743gagans7oqdvcfk4h.apps.googleusercontent.com",
+          "client_id": "1045980237193-4d7mr817ql62f8nunvkjk6qm6tho0kdu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "letswave.co.in.wave",
-            "certificate_hash": "77685ebe24b439996e62339da8fd22f79b9e06a3"
-          }
-        },
-        {
-          "client_id": "1045980237193-fahi28h6pm5g624rj6unmk9rkuacutbm.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "letswave.co.in.wave",
-            "certificate_hash": "424d5992b4b309848ae63f009d57e6973c614f6c"
+            "package_name": "com.wave.digitalidentity",
+            "certificate_hash": "7e2564f0ad1db6bc604919cf3cf2680e8452eb6f"
           }
         },
         {
@@ -50,6 +42,13 @@
             {
               "client_id": "1045980237193-o2nitn6r7oegc75gtc0datp5m14sul3i.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1045980237193-7j5mmp1v4jejka8lhvqqkgggssbtergo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "co.wavenow.ios"
+              }
             }
           ]
         },
