@@ -1,4 +1,4 @@
-package com.wave.digitalidentity.Models;
+package com.wave.identity.Models;
 
 public class AppNotification {
 

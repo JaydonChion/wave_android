@@ -1,4 +1,4 @@
-package com.wave.digitalidentity.Activities;
+package com.wave.identity.Activities;
 
 import android.Manifest;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.wave.digitalidentity.Activities;
+package com.wave.identity.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +20,7 @@ import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.wave.digitalidentity.Models.User;
+import com.wave.identity.Models.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;

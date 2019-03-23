@@ -1,13 +1,13 @@
-package com.wave.digitalidentity.Adapters;
+package com.wave.identity.Adapters;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.wave.digitalidentity.Fragments.IdentityFragment;
-import com.wave.digitalidentity.Fragments.ProfileFragment;
-import com.wave.digitalidentity.Fragments.ServicesFragment;
+import com.wave.identity.Fragments.IdentityFragment;
+import com.wave.identity.Fragments.ProfileFragment;
+import com.wave.identity.Fragments.ServicesFragment;
 
 public class MainViewPagerAdapter extends FragmentPagerAdapter {
     public MainViewPagerAdapter(FragmentManager fm) {

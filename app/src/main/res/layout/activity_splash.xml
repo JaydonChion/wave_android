@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@color/colorPrimary"
-    tools:context="com.wave.digitalidentity.Activities.SplashActivity">
+    tools:context="com.wave.identity.Activities.SplashActivity">
 
     <ImageView
         android:id="@+id/splashLogoImageView"

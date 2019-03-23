@@ -1,4 +1,4 @@
-package com.wave.digitalidentity.Activities;
+package com.wave.identity.Activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,7 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.wave.digitalidentity.Models.User;
+import com.wave.identity.Models.User;
 
 import org.json.JSONException;
 

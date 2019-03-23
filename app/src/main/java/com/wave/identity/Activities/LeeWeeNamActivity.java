@@ -1,4 +1,4 @@
-package com.wave.digitalidentity.Activities;
+package com.wave.identity.Activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -25,7 +25,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
-import com.wave.digitalidentity.Models.User;
+import com.wave.identity.Models.User;
 
 import java.util.Arrays;
 

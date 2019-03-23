@@ -1,4 +1,4 @@
-package com.wave.digitalidentity.Services;
+package com.wave.identity.Services;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -16,8 +16,8 @@ import android.support.v4.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.wave.digitalidentity.Activities.MainActivity;
-import com.wave.digitalidentity.Models.AppNotification;
+import com.wave.identity.Activities.MainActivity;
+import com.wave.identity.Models.AppNotification;
 
 import java.util.Map;
 

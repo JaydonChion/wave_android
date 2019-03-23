@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wave.digitalidentity.Activities.QRCodeReaderActivity">
+    tools:context="com.wave.identity.Activities.QRCodeReaderActivity">
     <com.dlazaro66.qrcodereaderview.QRCodeReaderView
         android:id="@+id/qrCodeReaderActivityQrCodeReaderView"
         android:layout_width="match_parent"

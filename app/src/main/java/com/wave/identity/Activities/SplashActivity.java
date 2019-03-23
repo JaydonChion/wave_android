@@ -1,4 +1,4 @@
-package com.wave.digitalidentity.Activities;
+package com.wave.identity.Activities;
 
 import android.Manifest;
 import android.content.Intent;
@@ -26,7 +26,7 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.wave.digitalidentity.Models.User;
+import com.wave.identity.Models.User;
 
 import org.json.JSONException;
 

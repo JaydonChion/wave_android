@@ -1,4 +1,4 @@
-package com.wave.digitalidentity.Fragments;
+package com.wave.identity.Fragments;
 
 
 import android.os.Bundle;
@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.wave.digitalidentity.Activities.MainActivity;
-import com.wave.digitalidentity.Models.User;
+import com.wave.identity.Activities.MainActivity;
+import com.wave.identity.Models.User;
 
 import net.glxn.qrgen.android.QRCode;
 

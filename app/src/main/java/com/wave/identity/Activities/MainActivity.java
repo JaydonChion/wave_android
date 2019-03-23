@@ -1,4 +1,4 @@
-package com.wave.digitalidentity.Activities;
+package com.wave.identity.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,8 +19,8 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
-import com.wave.digitalidentity.Adapters.MainViewPagerAdapter;
-import com.wave.digitalidentity.Models.User;
+import com.wave.identity.Adapters.MainViewPagerAdapter;
+import com.wave.identity.Models.User;
 
 import org.json.JSONException;
 

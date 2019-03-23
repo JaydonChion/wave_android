@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1045980237193:android:c2f5a8f6e110cf19",
+        "mobilesdk_app_id": "1:1045980237193:android:9a43be5ecb8d1e53",
         "android_client_info": {
-          "package_name": "com.wave.digitalidentity"
+          "package_name": "com.wave.identity"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1045980237193-4d7mr817ql62f8nunvkjk6qm6tho0kdu.apps.googleusercontent.com",
+          "client_id": "1045980237193-ag5q1365dcg181bm4rqj0nnuhah5b7mu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.wave.digitalidentity",
+            "package_name": "com.wave.identity",
             "certificate_hash": "7e2564f0ad1db6bc604919cf3cf2680e8452eb6f"
           }
         },

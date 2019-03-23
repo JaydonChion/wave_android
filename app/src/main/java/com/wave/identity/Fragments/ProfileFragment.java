@@ -1,4 +1,4 @@
-package com.wave.digitalidentity.Fragments;
+package com.wave.identity.Fragments;
 
 
 import android.app.Activity;
@@ -27,9 +27,9 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.wave.digitalidentity.Activities.MainActivity;
-import com.wave.digitalidentity.Activities.SignInActivity;
-import com.wave.digitalidentity.Models.User;
+import com.wave.identity.Activities.MainActivity;
+import com.wave.identity.Activities.SignInActivity;
+import com.wave.identity.Models.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;

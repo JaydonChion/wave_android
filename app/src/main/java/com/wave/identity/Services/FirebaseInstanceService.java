@@ -1,4 +1,4 @@
-package com.wave.digitalidentity.Services;
+package com.wave.identity.Services;
 
 import android.util.Log;
 

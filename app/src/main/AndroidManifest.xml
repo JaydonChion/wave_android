@@ -27,34 +27,34 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name="com.wave.digitalidentity.Activities.QRCodeReaderActivity" />
+        <activity android:name="com.wave.identity.Activities.QRCodeReaderActivity" />
         <activity
-            android:name="com.wave.digitalidentity.Activities.GoodieBagCollectionActivity"
+            android:name="com.wave.identity.Activities.GoodieBagCollectionActivity"
             android:label="Goodie Bag Collection"
-            android:parentActivityName="com.wave.digitalidentity.Activities.MainActivity" />
+            android:parentActivityName="com.wave.identity.Activities.MainActivity" />
         <activity
-            android:name="com.wave.digitalidentity.Activities.SleepingPodActivity"
+            android:name="com.wave.identity.Activities.SleepingPodActivity"
             android:label="Sleeping Pod Booking"
-            android:parentActivityName="com.wave.digitalidentity.Activities.MainActivity" />
+            android:parentActivityName="com.wave.identity.Activities.MainActivity" />
         <activity
-            android:name="com.wave.digitalidentity.Activities.LeeWeeNamActivity"
+            android:name="com.wave.identity.Activities.LeeWeeNamActivity"
             android:label="Lee Wee Nam Mobile Access"
-            android:parentActivityName="com.wave.digitalidentity.Activities.MainActivity" />
+            android:parentActivityName="com.wave.identity.Activities.MainActivity" />
         <activity
-            android:name="com.wave.digitalidentity.Activities.HallAccessActivity"
+            android:name="com.wave.identity.Activities.HallAccessActivity"
             android:label="Hall Access"
-            android:parentActivityName="com.wave.digitalidentity.Activities.MainActivity" />
+            android:parentActivityName="com.wave.identity.Activities.MainActivity" />
         <activity
-            android:name="com.wave.digitalidentity.Activities.HiveActivity"
+            android:name="com.wave.identity.Activities.HiveActivity"
             android:label="Hive &amp; Arc Mobile Access"
-            android:parentActivityName="com.wave.digitalidentity.Activities.MainActivity" />
-        <activity android:name="com.wave.digitalidentity.Activities.PhoneNumberActivity" />
-        <activity android:name="com.wave.digitalidentity.Activities.MainActivity" />
+            android:parentActivityName="com.wave.identity.Activities.MainActivity" />
+        <activity android:name="com.wave.identity.Activities.PhoneNumberActivity" />
+        <activity android:name="com.wave.identity.Activities.MainActivity" />
         <activity
-            android:name="com.wave.digitalidentity.Activities.SignUpActivity"
-            android:parentActivityName="com.wave.digitalidentity.Activities.SignInActivity" />
-        <activity android:name="com.wave.digitalidentity.Activities.SignInActivity" />
-        <activity android:name="com.wave.digitalidentity.Activities.SplashActivity">
+            android:name="com.wave.identity.Activities.SignUpActivity"
+            android:parentActivityName="com.wave.identity.Activities.SignInActivity" />
+        <activity android:name="com.wave.identity.Activities.SignInActivity" />
+        <activity android:name="com.wave.identity.Activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -62,12 +62,12 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.wave.digitalidentity.Services.AppNotificationService">
+        <service android:name="com.wave.identity.Services.AppNotificationService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-        <service android:name="com.wave.digitalidentity.Services.FirebaseInstanceService" >
+        <service android:name="com.wave.identity.Services.FirebaseInstanceService" >
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>

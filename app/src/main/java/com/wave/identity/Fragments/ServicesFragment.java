@@ -1,4 +1,4 @@
-package com.wave.digitalidentity.Fragments;
+package com.wave.identity.Fragments;
 
 
 import android.content.Intent;
@@ -10,13 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.wave.digitalidentity.Activities.GoodieBagCollectionActivity;
-import com.wave.digitalidentity.Activities.HallAccessActivity;
-import com.wave.digitalidentity.Activities.HiveActivity;
-import com.wave.digitalidentity.Activities.LeeWeeNamActivity;
-import com.wave.digitalidentity.Activities.MainActivity;
-import com.wave.digitalidentity.Activities.SleepingPodActivity;
-import com.wave.digitalidentity.Models.User;
+import com.wave.identity.Activities.GoodieBagCollectionActivity;
+import com.wave.identity.Activities.HallAccessActivity;
+import com.wave.identity.Activities.HiveActivity;
+import com.wave.identity.Activities.LeeWeeNamActivity;
+import com.wave.identity.Activities.MainActivity;
+import com.wave.identity.Activities.SleepingPodActivity;
+import com.wave.identity.Models.User;
 
 import java.util.Objects;
 
