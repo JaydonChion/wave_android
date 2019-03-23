@@ -84,11 +84,12 @@
 
     <TextView
         android:id="@+id/textView22"
-        android:layout_width="wrap_content"
-        android:layout_height="12dp"
+        android:layout_width="260dp"
+        android:layout_height="78dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:clickable="true"
+        android:gravity="bottom|center"
         android:onClick="openWaveWebsite"
         android:text="@string/website"
         android:textColor="@color/colorPrimary"

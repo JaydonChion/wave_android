@@ -25,7 +25,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
         app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="40dp"
         app:cardElevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,8 @@
         <ImageView
             android:id="@+id/leeWeeNamBarCodeImageView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="90dp"
+            android:padding="5dp" />
     </android.support.design.card.MaterialCardView>
 
     <TextView
@@ -59,12 +60,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
+        android:alpha="0.70"
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
         android:text="Scan the barcode\nunder the barcode reader"
         android:textAllCaps="true"
         android:textColor="@color/colorTextDark"
-        android:textSize="14sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
@@ -81,6 +83,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:src="@drawable/access1" />
-
 
 </android.support.constraint.ConstraintLayout>

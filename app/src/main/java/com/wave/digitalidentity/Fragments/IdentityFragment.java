@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,6 +84,7 @@ public class IdentityFragment extends Fragment {
         super.onStart();
         unbinder = ButterKnife.bind(IdentityFragment.this, rootView);
         currentUser = ((MainActivity) Objects.requireNonNull(getActivity())).getCurrentUser();
+        Log.v("USER", currentUser.toString());
         generateQrCode(currentUser.getAuthorityIssuedId());
         identityCardUserNameTextView.setText(currentUser.getName());
         identityCardMatricTextView.setText(currentUser.getAuthorityIssuedId());
