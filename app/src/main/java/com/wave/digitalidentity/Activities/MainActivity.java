@@ -64,14 +64,21 @@ public class MainActivity extends AppCompatActivity {
         Glide.with(getApplicationContext()).load(R.drawable.logo).into(mainToolbarLogoImageView);
 
         sharedPreferences = getSharedPreferences("SP", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         String email = sharedPreferences.getString("email", null);
         currentUser = getIntent().getParcelableExtra("USER");
-        if(currentUser==null && email!=null) fetchCurrentUser(email);
-        else if (email==null) {
-            startActivity(new Intent(MainActivity.this, SignInActivity.class));
-            finish();
-        }
-        else {
+        if (currentUser==null) {
+            if(email==null) {
+                startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                finish();
+            }
+            else fetchCurrentUser(email);
+        } else {
+            if (email==null) {
+                editor = sharedPreferences.edit();
+                editor.putString("email", currentUser.getEmail());
+                editor.apply();
+            }
             initializeViews();
             initializeComponents();
         }
@@ -116,9 +123,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeComponents() {
         firebaseAuth = FirebaseAuth.getInstance();
-        editor = sharedPreferences.edit();
-        editor.putString("email", currentUser.getEmail());
-        editor.apply();
         nfcManager = (NfcManager) getSystemService(NFC_SERVICE);
         nfcAdapter = nfcManager.getDefaultAdapter();
         firebaseAnalytics = FirebaseAnalytics.getInstance(MainActivity.this);
@@ -144,6 +148,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
+        editor.putString("email", currentUser.getEmail());
+        editor.apply();
         mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
         mainViewPager.setAdapter(mainViewPagerAdapter);
         mainTabLayout.setupWithViewPager(mainViewPager);
