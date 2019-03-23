@@ -146,7 +146,7 @@ public class ProfileFragment extends Fragment {
                     .show();
             JSONObject updateJson = new JSONObject();
             updateJson.put("name", name);
-            updateJson.put("authority_id", matric);
+            //updateJson.put("authority_id", matric);
             updateJson.put("phone", phone);
             updateJson.put("photo", profilePictureUrl);
             String requestUrl = baseServerUrl+"/users/"+currentUser.getId();

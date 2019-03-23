@@ -7,7 +7,6 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -84,6 +83,8 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void fetchCurrentUser(String email) {
+        if (!email.equals("test@test.com")) email=email.toUpperCase();
+        String finalEmail = email;
         String requestUrl = domain+"/users/"+email;
         JsonObjectRequest userObjectRequest = new JsonObjectRequest(Request.Method.GET, requestUrl, null, response -> {
             try {
@@ -93,7 +94,7 @@ public class SignInActivity extends AppCompatActivity {
                 String authorityIssuedId = response.getString("authority_id");
                 String photo = response.getString("photo");
                 String phone = response.getString("phone");
-                User currentUser = new User(userId, authorityName, authorityIssuedId, name, email, photo, phone);
+                User currentUser = new User(userId, authorityName, authorityIssuedId, name, finalEmail, photo, phone);
                 Intent mainActivityIntent = new Intent(SignInActivity.this, MainActivity.class);
                 mainActivityIntent.putExtra("USER", currentUser);
                 if (materialDialog!=null && materialDialog.isShowing()) materialDialog.dismiss();
@@ -101,21 +102,24 @@ public class SignInActivity extends AppCompatActivity {
                 finish();
             } catch (JSONException e) {
                 Snackbar.make(signInImageView, e.getMessage(), Snackbar.LENGTH_INDEFINITE)
-                        .setAction("RETRY", v -> fetchCurrentUser(email))
+                        .setAction("RETRY", v -> fetchCurrentUser(finalEmail))
                         .setActionTextColor(Color.YELLOW)
                         .show();
             }
-        }, error -> Snackbar.make(signInImageView, error.getMessage(), Snackbar.LENGTH_INDEFINITE)
-                .setAction("RETRY", v -> fetchCurrentUser(email))
-                .setActionTextColor(Color.YELLOW)
-                .show());
+        }, error -> {
+            if (error.networkResponse.statusCode==400) notifyMessage("Account with email "+finalEmail+" does not exist!");
+            else
+                Snackbar.make(signInImageView, error.getMessage(), Snackbar.LENGTH_INDEFINITE)
+                        .setAction("RETRY", v -> fetchCurrentUser(finalEmail))
+                        .setActionTextColor(Color.YELLOW)
+                        .show();
+        });
         requestQueue.add(userObjectRequest);
     }
 
 
     private void notifyMessage(String message) {
         if (materialDialog!=null && materialDialog.isShowing()) materialDialog.dismiss();
-        Log.v("SIGN_IN", message);
         Snackbar.make(signInImageView, message, Snackbar.LENGTH_LONG).show();
     }
 
