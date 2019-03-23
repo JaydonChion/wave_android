@@ -40,7 +40,7 @@ public class AppNotificationService extends FirebaseMessagingService {
 
     private void sendNotification(AppNotification appNotification) {
         NotificationCompat.BigTextStyle style = new NotificationCompat.BigTextStyle();
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.appicon);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo1);
         Uri defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -49,7 +49,7 @@ public class AppNotificationService extends FirebaseMessagingService {
         String NOTIFICATION_CHANNEL_ID = "101";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             @SuppressLint("WrongConstant") NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "Notification", NotificationManager.IMPORTANCE_MAX);
-            notificationChannel.setDescription("Game Notifications");
+            notificationChannel.setDescription("App Notifications");
             notificationChannel.enableLights(true);
             notificationChannel.setVibrationPattern(new long[]{500});
             notificationChannel.enableVibration(true);
@@ -57,7 +57,7 @@ public class AppNotificationService extends FirebaseMessagingService {
         }
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                .setSmallIcon(R.drawable.appicon)
+                .setSmallIcon(R.mipmap.ic_launcher_round)
                 .setLargeIcon(bitmap)
                 .setContentTitle(appNotification.getTitle())
                 .setAutoCancel(true)
@@ -69,7 +69,7 @@ public class AppNotificationService extends FirebaseMessagingService {
                 .setWhen(System.currentTimeMillis())
                 .setPriority(Notification.PRIORITY_MAX);
         if (appNotification.getImageUrl()==null) notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                .setSmallIcon(R.drawable.appicon)
+                .setSmallIcon(R.mipmap.ic_launcher_round)
                 .setLargeIcon(bitmap)
                 .setContentTitle(appNotification.getTitle())
                 .setAutoCancel(true)

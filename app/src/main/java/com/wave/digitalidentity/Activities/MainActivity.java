@@ -1,20 +1,30 @@
 package com.wave.digitalidentity.Activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcManager;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.wave.digitalidentity.Adapters.MainViewPagerAdapter;
 import com.wave.digitalidentity.Models.User;
 
+import org.json.JSONException;
+
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -30,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     TabLayout mainTabLayout;
     @BindView(R.id.mainViewPager)
     ViewPager mainViewPager;
+    @BindString(R.string.domain)
+    String domain;
 
     private FirebaseAuth firebaseAuth;
     private Unbinder unbinder;
@@ -39,20 +51,64 @@ public class MainActivity extends AppCompatActivity {
     private NfcAdapter nfcAdapter;
     private SharedPreferences.Editor editor;
     private FirebaseAnalytics firebaseAnalytics;
+    private SharedPreferences sharedPreferences;
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        unbinder = ButterKnife.bind(MainActivity.this);
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        Glide.with(getApplicationContext()).load(R.drawable.logo).into(mainToolbarLogoImageView);
+
+        sharedPreferences = getSharedPreferences("SP", MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", null);
         currentUser = getIntent().getParcelableExtra("USER");
-        initializeViews();
-        initializeComponents();
+        if(currentUser==null && email!=null) fetchCurrentUser(email);
+        else if (email==null) {
+            startActivity(new Intent(MainActivity.this, SignInActivity.class));
+            finish();
+        }
+        else {
+            initializeViews();
+            initializeComponents();
+        }
+    }
+
+    private void fetchCurrentUser(String email) {
+        String requestUrl = domain+"/users/"+email;
+        JsonObjectRequest userObjectRequest = new JsonObjectRequest(Request.Method.GET, requestUrl, null, response -> {
+            try {
+                String userId = response.getString("_id");
+                String name = response.getString("name");
+                String authorityName = response.getString("authority_name");
+                String authorityIssuedId = response.getString("authority_id");
+                String photo = response.getString("photo");
+                String phone = response.getString("phone");
+                User user = new User(userId, authorityName, authorityIssuedId, name, email, photo, phone);
+                setCurrentUser(user);
+            } catch (JSONException e) {
+                Snackbar.make(mainToolbarLogoImageView, e.getMessage(), Snackbar.LENGTH_INDEFINITE)
+                        .setAction("RETRY", v -> fetchCurrentUser(email))
+                        .setActionTextColor(Color.YELLOW)
+                        .show();
+            }
+        }, error -> {
+            if (error.networkResponse.statusCode==400) {
+                startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                finish();
+            }
+            else Snackbar.make(mainToolbarLogoImageView, error.getMessage(), Snackbar.LENGTH_INDEFINITE)
+                        .setAction("RETRY", v -> fetchCurrentUser(email))
+                        .setActionTextColor(Color.YELLOW)
+                        .show();
+        });
+        requestQueue.add(userObjectRequest);
     }
 
     private void initializeViews() {
-        unbinder = ButterKnife.bind(MainActivity.this);
-        Glide.with(getApplicationContext()).load(R.drawable.logo).into(mainToolbarLogoImageView);
         mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
         mainViewPager.setAdapter(mainViewPagerAdapter);
         mainTabLayout.setupWithViewPager(mainViewPager);
@@ -60,14 +116,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeComponents() {
         firebaseAuth = FirebaseAuth.getInstance();
-        editor = getSharedPreferences("SP", MODE_PRIVATE).edit();
+        editor = sharedPreferences.edit();
         editor.putString("email", currentUser.getEmail());
         editor.apply();
         nfcManager = (NfcManager) getSystemService(NFC_SERVICE);
         nfcAdapter = nfcManager.getDefaultAdapter();
-        if (nfcAdapter==null || !nfcAdapter.isEnabled()) {
-            //Open NFC settings
-        }
         firebaseAnalytics = FirebaseAnalytics.getInstance(MainActivity.this);
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, currentUser.getId());
