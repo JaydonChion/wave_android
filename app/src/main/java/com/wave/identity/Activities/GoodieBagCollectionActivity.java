@@ -97,7 +97,10 @@ public class GoodieBagCollectionActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 notifyMessage(e.getMessage());
             }
-        }, error -> notifyMessage(error.getMessage()));
+        }, error -> {
+            if (error.networkResponse.statusCode==400) notifyMessage("You are not a participant in this event!\nContact us for more information.");
+            else notifyMessage(error.getMessage());
+        });
         requestQueue.add(jsonObjectRequest);
     }
 
