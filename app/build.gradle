@@ -6,8 +6,8 @@ android {
         applicationId "com.wave.identity"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 22
-        versionName "Stable Public Release!"
+        versionCode 23
+        versionName "Public Release"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
