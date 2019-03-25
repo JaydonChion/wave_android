@@ -17,7 +17,7 @@
     <string name="domain_raw">&domain;</string>
     <string name="domain">http://&domain;/api/v1</string>
 
-    <string name="website">https://wavenow.wixsite.com/wave</string>
+    <string name="website">https://www.wavenow.co</string>
     <string name="website_desc">Subscribe at our landing page to\nbe notified on new services.</string>
 
     <array name="schools">

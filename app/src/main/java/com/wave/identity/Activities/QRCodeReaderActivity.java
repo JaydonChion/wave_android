@@ -35,6 +35,8 @@ public class QRCodeReaderActivity extends AppCompatActivity {
     QRCodeReaderView qrCodeReaderView;
     @BindString(R.string.domain)
     String baseServerUrl;
+    @BindString(R.string.website)
+    String websiteUrl;
     @BindView(R.id.qrCodeReaderActivityLogoImageView)
     ImageView qrCodeReaderActivityLogoImageView;
 
@@ -68,7 +70,7 @@ public class QRCodeReaderActivity extends AppCompatActivity {
         qrCodeReaderView.setOnQRCodeReadListener((text, points) -> {
 
             if ((materialDialog == null || !materialDialog.isShowing())) {
-                if ((text.equals("https://wavenow.wixsite.com/wave"))) {
+                if ((text.startsWith(websiteUrl))) {
                     vibrator.vibrate(500);
                     materialDialog = new MaterialDialog.Builder(QRCodeReaderActivity.this)
                             .customView(R.layout.dialog_redeem_goodie_bag, true)

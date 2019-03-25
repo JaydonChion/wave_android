@@ -126,9 +126,10 @@ public class SignUpActivity extends AppCompatActivity {
                     String photo = response.getString("photo");
                     String phone = response.getString("phone");
                     User currentUser = new User(userId, authorityName, authorityIssuedId, nameOnServer, emailOnServer, photo, phone);
-                    Intent phoneNumberActivityIntent = new Intent(SignUpActivity.this, MainActivity.class);
-                    phoneNumberActivityIntent.putExtra("USER", currentUser);
-                    startActivity(phoneNumberActivityIntent);
+                    Intent mainActivityIntent = new Intent(SignUpActivity.this, MainActivity.class);
+                    mainActivityIntent.putExtra("USER", currentUser);
+                    startActivity(mainActivityIntent);
+                    finish();
                 } catch (JSONException e) {
                     notifyMessage(e.getMessage());
                 }

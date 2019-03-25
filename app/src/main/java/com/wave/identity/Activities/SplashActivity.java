@@ -2,7 +2,6 @@ package com.wave.identity.Activities;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,6 +30,7 @@ import com.wave.identity.Models.User;
 import org.json.JSONException;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -49,7 +49,6 @@ public class SplashActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private Unbinder unbinder;
     private static final int SPLASH_DELAY_LENGTH = 1000;
-    private String email;
     private DatabaseReference databaseReference;
 
     @Override
@@ -74,8 +73,6 @@ public class SplashActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         requestQueue = Volley.newRequestQueue(getApplicationContext());
-        SharedPreferences prefs = getSharedPreferences("SP", MODE_PRIVATE);
-        email = prefs.getString("email", null);
         Dexter.withActivity(SplashActivity.this)
                 .withPermissions(
                         Manifest.permission.CAMERA,
@@ -88,12 +85,12 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onPermissionsChecked(MultiplePermissionsReport report) {
                 if (report.areAllPermissionsGranted()) {
-                    if (email==null) {
+                    if (firebaseAuth.getCurrentUser()==null) {
                         new Handler().postDelayed(() -> {
                             startActivity(new Intent(SplashActivity.this, SignInActivity.class));
                             finish();
                         }, SPLASH_DELAY_LENGTH);
-                    } else fetchCurrentUser();
+                    } else fetchCurrentUser(firebaseAuth.getCurrentUser().getUid());
                 } else if (report.isAnyPermissionPermanentlyDenied()) {
                     Snackbar.make(splashLogoImageView, "Please provide all the required permissions to continue", Snackbar.LENGTH_INDEFINITE)
                             .setAction("RETRY", v -> initializeComponents()).setActionTextColor(Color.YELLOW)
@@ -108,31 +105,29 @@ public class SplashActivity extends AppCompatActivity {
         }).withErrorListener(error -> Snackbar.make(splashLogoImageView, error.toString(), Snackbar.LENGTH_INDEFINITE).setAction("RETRY", v -> initializeComponents()).setActionTextColor(Color.YELLOW).show()).check();
     }
 
-    private void fetchCurrentUser() {
-        String requestUrl = domain+"/users/"+email;
+    private void fetchCurrentUser(String userId) {
+        String requestUrl = domain+"/users/"+userId;
         JsonObjectRequest userObjectRequest = new JsonObjectRequest(Request.Method.GET, requestUrl, null, response -> {
             try {
-                String userId = response.getString("_id");
                 String name = response.getString("name");
                 String authorityName = response.getString("authority_name");
                 String authorityIssuedId = response.getString("authority_id");
-                email = response.getString("email");
+                String email = response.getString("email");
                 String photo = response.getString("photo");
                 String phone = response.getString("phone");
                 User currentUser = new User(userId, authorityName, authorityIssuedId, name, email, photo, phone);
-                if (response.has("phone")) currentUser.setPhone(response.getString("phone"));
                 Intent mainActivityIntent = new Intent(SplashActivity.this, MainActivity.class);
                 mainActivityIntent.putExtra("USER", currentUser);
                 startActivity(mainActivityIntent);
                 finish();
             } catch (JSONException e) {
                 Snackbar.make(splashLogoImageView, e.getMessage(), Snackbar.LENGTH_INDEFINITE)
-                        .setAction("RETRY", v -> fetchCurrentUser())
+                        .setAction("RETRY", v -> fetchCurrentUser(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid()))
                         .setActionTextColor(Color.YELLOW)
                         .show();
             }
         }, error -> Snackbar.make(splashLogoImageView, error.getMessage(), Snackbar.LENGTH_INDEFINITE)
-                .setAction("RETRY", v -> fetchCurrentUser())
+                .setAction("RETRY", v -> fetchCurrentUser(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid()))
                 .setActionTextColor(Color.YELLOW)
                 .show());
         requestQueue.add(userObjectRequest);

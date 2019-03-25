@@ -1,7 +1,6 @@
 package com.wave.identity.Activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcManager;
@@ -49,9 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private User currentUser;
     private NfcManager nfcManager;
     private NfcAdapter nfcAdapter;
-    private SharedPreferences.Editor editor;
     private FirebaseAnalytics firebaseAnalytics;
-    private SharedPreferences sharedPreferences;
     private RequestQueue requestQueue;
 
     @Override
@@ -59,46 +56,39 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        firebaseAuth = FirebaseAuth.getInstance();
         unbinder = ButterKnife.bind(MainActivity.this);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         Glide.with(getApplicationContext()).load(R.drawable.logo).into(mainToolbarLogoImageView);
 
-        sharedPreferences = getSharedPreferences("SP", MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-        String email = sharedPreferences.getString("email", null);
         currentUser = getIntent().getParcelableExtra("USER");
         if (currentUser==null) {
-            if(email==null) {
+            if(firebaseAuth.getCurrentUser()==null) {
                 startActivity(new Intent(MainActivity.this, SignInActivity.class));
                 finish();
             }
-            else fetchCurrentUser(email);
+            else fetchCurrentUser(firebaseAuth.getCurrentUser().getUid());
         } else {
-            if (email==null) {
-                editor = sharedPreferences.edit();
-                editor.putString("email", currentUser.getEmail());
-                editor.apply();
-            }
             initializeViews();
             initializeComponents();
         }
     }
 
-    private void fetchCurrentUser(String email) {
-        String requestUrl = domain+"/users/"+email;
+    private void fetchCurrentUser(String userId) {
+        String requestUrl = domain+"/users/"+userId;
         JsonObjectRequest userObjectRequest = new JsonObjectRequest(Request.Method.GET, requestUrl, null, response -> {
             try {
-                String userId = response.getString("_id");
                 String name = response.getString("name");
                 String authorityName = response.getString("authority_name");
                 String authorityIssuedId = response.getString("authority_id");
+                String email = response.getString("email");
                 String photo = response.getString("photo");
                 String phone = response.getString("phone");
                 User user = new User(userId, authorityName, authorityIssuedId, name, email, photo, phone);
                 setCurrentUser(user);
             } catch (JSONException e) {
                 Snackbar.make(mainToolbarLogoImageView, e.getMessage(), Snackbar.LENGTH_INDEFINITE)
-                        .setAction("RETRY", v -> fetchCurrentUser(email))
+                        .setAction("RETRY", v -> fetchCurrentUser(userId))
                         .setActionTextColor(Color.YELLOW)
                         .show();
             }
@@ -108,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
             else Snackbar.make(mainToolbarLogoImageView, error.getMessage(), Snackbar.LENGTH_INDEFINITE)
-                        .setAction("RETRY", v -> fetchCurrentUser(email))
+                        .setAction("RETRY", v -> fetchCurrentUser(userId))
                         .setActionTextColor(Color.YELLOW)
                         .show();
         });
@@ -132,9 +122,6 @@ public class MainActivity extends AppCompatActivity {
         firebaseAnalytics.logEvent(SELECT_CONTENT, bundle);
     }
 
-    public SharedPreferences.Editor getEditor() {
-        return editor;
-    }
 
     @Override
     protected void onDestroy() {
@@ -148,8 +135,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
-        editor.putString("email", currentUser.getEmail());
-        editor.apply();
         mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
         mainViewPager.setAdapter(mainViewPagerAdapter);
         mainTabLayout.setupWithViewPager(mainViewPager);

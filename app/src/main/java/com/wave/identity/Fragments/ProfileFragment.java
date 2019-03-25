@@ -3,13 +3,13 @@ package com.wave.identity.Fragments;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +24,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -49,7 +51,7 @@ import letswave.co.in.wave.R;
  */
 public class ProfileFragment extends Fragment {
 
-    @BindView(R.id.profileCancelTextView)
+    @BindView(R.id.profileChangePasswordTextView)
     TextView profileCancelTextView;
     @BindView(R.id.profileDoneTextView)
     TextView profileDoneTextView;
@@ -78,7 +80,6 @@ public class ProfileFragment extends Fragment {
     private User currentUser;
     private RequestQueue requestQueue;
     private MaterialDialog materialDialog;
-    private SharedPreferences.Editor editor;
     private String profilePictureUrl;
     private StorageReference storageReference;
     private static final int RC_PICK_IMAGE = 141;
@@ -112,7 +113,6 @@ public class ProfileFragment extends Fragment {
 
     private void initializeComponents() {
         firebaseAuth = FirebaseAuth.getInstance();
-        editor = ((MainActivity) Objects.requireNonNull(getActivity())).getEditor();
         requestQueue = Volley.newRequestQueue(rootView.getContext());
         storageReference = FirebaseStorage.getInstance().getReference("profiles/images/"+currentUser.getId()+"/dp.jpg");
     }
@@ -120,8 +120,6 @@ public class ProfileFragment extends Fragment {
     @OnClick(R.id.profileSignOutTextView)
     public void onSignOutTextViewPress() {
         firebaseAuth.signOut();
-        editor.putString("email", null);
-        editor.apply();
         Objects.requireNonNull(getActivity()).startActivity(new Intent(rootView.getContext(), SignInActivity.class));
         Objects.requireNonNull(getActivity()).finish();
     }
@@ -129,17 +127,82 @@ public class ProfileFragment extends Fragment {
     @OnClick(R.id.profileDoneTextView)
     public void onDoneTextViewPress() {
         String name = profileNameEditText.getText().toString();
-        String matric = profileMatricEditText.getText().toString();
         String phone = profilePhoneEditText.getText().toString();
-        updateUser(name, matric, phone, profilePictureUrl);
+        updateUser(name, phone, profilePictureUrl);
     }
 
-    private void updateUser(String name, String matric, String phone, String profilePictureUrl) {
+    @OnClick(R.id.profileChangePasswordTextView)
+    public void onChangePasswordTextViewPress() {
+        if (materialDialog!=null && materialDialog.isShowing()) materialDialog.dismiss();
+        materialDialog  = new MaterialDialog.Builder(rootView.getContext())
+                .title(R.string.app_name)
+                .content("Enter your current password")
+                .input("Current Password", null, false, (dialog, input) -> checkIfPasswordIsLegit(input.toString()))
+                .inputType(InputType.TYPE_TEXT_VARIATION_PASSWORD)
+                .positiveText("UPDATE")
+                .negativeText("FORGOT PASSWORD")
+                .negativeColor(Color.parseColor("#ef6a6e"))
+                .positiveColorRes(R.color.colorPrimary)
+                .titleColorRes(android.R.color.black)
+                .contentColorRes(R.color.colorTextDark)
+                .show();
+    }
+
+    private void checkIfPasswordIsLegit(String enteredPassword) {
+        if (materialDialog!=null && materialDialog.isShowing()) materialDialog.dismiss();
+        materialDialog = new MaterialDialog.Builder(rootView.getContext())
+                .title(R.string.app_name)
+                .content("Checking if entered password is valid")
+                .progress(true, 0)
+                .titleColorRes(android.R.color.black)
+                .contentColorRes(R.color.colorTextDark)
+                .show();
+        AuthCredential authCredential = EmailAuthProvider.getCredential(currentUser.getEmail(), enteredPassword);
+        Objects.requireNonNull(firebaseAuth.getCurrentUser()).reauthenticate(authCredential).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) updatePassword();
+            else notifyMessage(Objects.requireNonNull(task.getException()).getMessage());
+        });
+    }
+
+    private void updatePassword() {
+        if (materialDialog!=null && materialDialog.isShowing()) materialDialog.dismiss();
+        materialDialog  = new MaterialDialog.Builder(rootView.getContext())
+                .title(R.string.app_name)
+                .content("Enter your new password")
+                .input("New Password", null, false, (dialog, input) -> {
+                    String newPassword = input.toString();
+                    if (TextUtils.isEmpty(newPassword)) notifyMessage("Please enter a password");
+                    else {
+                        if (materialDialog!=null && materialDialog.isShowing()) materialDialog.dismiss();
+                        materialDialog = new MaterialDialog.Builder(rootView.getContext())
+                                .title(R.string.app_name)
+                                .content("Updating password")
+                                .progress(true, 0)
+                                .titleColorRes(android.R.color.black)
+                                .contentColorRes(R.color.colorTextDark)
+                                .show();
+                        Objects.requireNonNull(firebaseAuth.getCurrentUser()).updatePassword(newPassword).addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) notifyMessage("Password successfully changed.");
+                            else notifyMessage(Objects.requireNonNull(task.getException()).getMessage());
+                        });
+                    }
+                })
+                .inputType(InputType.TYPE_TEXT_VARIATION_PASSWORD)
+                .positiveText("UPDATE")
+                .negativeText("CANCEL")
+                .negativeColor(Color.parseColor("#ef6a6e"))
+                .positiveColorRes(R.color.colorPrimary)
+                .titleColorRes(android.R.color.black)
+                .contentColorRes(R.color.colorTextDark)
+                .show();
+    }
+
+    private void updateUser(String name, String phone, String profilePictureUrl) {
         try {
             if (materialDialog!=null && materialDialog.isShowing()) materialDialog.dismiss();
             materialDialog = new MaterialDialog.Builder(rootView.getContext())
                     .title("Wave")
-                    .content("Updating profile..")
+                    .content("Updating profile")
                     .progress(true, 0)
                     .titleColorRes(android.R.color.black)
                     .contentColorRes(R.color.colorTextDark)
@@ -205,7 +268,7 @@ public class ProfileFragment extends Fragment {
         storageReference.putFile(data).addOnSuccessListener(taskSnapshot -> storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
             Glide.with(rootView.getContext()).load(uri).into(profileImageView);
             profilePictureUrl = uri.toString();
-            updateUser(profileNameEditText.getText().toString(), profileMatricEditText.getText().toString(), profilePhoneEditText.getText().toString(), profilePictureUrl);
+            updateUser(profileNameEditText.getText().toString(), profilePhoneEditText.getText().toString(), profilePictureUrl);
         }).addOnFailureListener(e -> notifyMessage(e.getMessage()))).addOnFailureListener(e -> notifyMessage(e.getMessage()));
     }
 

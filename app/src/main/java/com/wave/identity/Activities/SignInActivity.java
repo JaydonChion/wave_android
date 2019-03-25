@@ -37,6 +37,8 @@ public class SignInActivity extends AppCompatActivity {
     ImageView signInImageView;
     @BindView(R.id.signInEmailAddressEditText)
     TextInputEditText signInEmailAddressEditText;
+    @BindView(R.id.signInPasswordEditText)
+    TextInputEditText signInPasswordEditText;
     @BindString(R.string.domain)
     String domain;
 
@@ -66,10 +68,19 @@ public class SignInActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
+    /*
+    @OnClick(R.id.signInSignUpTextView)
+    public void onSignInSignUpTextViewPress() {
+        startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
+    }
+    */
+
     @OnClick(R.id.signInButton)
     public void onSignInButtonPress() {
         String email = Objects.requireNonNull(signInEmailAddressEditText.getText()).toString();
+        String password = Objects.requireNonNull(signInPasswordEditText.getText()).toString();
         if (TextUtils.isEmpty(email)) notifyMessage("Email Address is empty");
+        else if (TextUtils.isEmpty(password)) notifyMessage("Password field is empty");
         else {
             materialDialog = new MaterialDialog.Builder(SignInActivity.this)
                     .title(R.string.app_name)
@@ -78,19 +89,21 @@ public class SignInActivity extends AppCompatActivity {
                     .titleColorRes(android.R.color.black)
                     .contentColorRes(R.color.colorTextDark)
                     .show();
-            if (!email.equals("test@test.com")) email=email.toUpperCase();
-            fetchCurrentUser(email);
+            firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) fetchCurrentUser(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
+                else notifyMessage(Objects.requireNonNull(task.getException()).getMessage());
+            });
         }
     }
 
-    private void fetchCurrentUser(String email) {
-        String requestUrl = domain+"/users/"+email;
+    private void fetchCurrentUser(String userId) {
+        String requestUrl = domain+"/users/"+userId;
         JsonObjectRequest userObjectRequest = new JsonObjectRequest(Request.Method.GET, requestUrl, null, response -> {
             try {
-                String userId = response.getString("_id");
                 String name = response.getString("name");
                 String authorityName = response.getString("authority_name");
                 String authorityIssuedId = response.getString("authority_id");
+                String email = response.getString("email");
                 String photo = response.getString("photo");
                 String phone = response.getString("phone");
                 User currentUser = new User(userId, authorityName, authorityIssuedId, name, email, photo, phone);
@@ -101,15 +114,15 @@ public class SignInActivity extends AppCompatActivity {
                 finish();
             } catch (JSONException e) {
                 Snackbar.make(signInImageView, e.getMessage(), Snackbar.LENGTH_INDEFINITE)
-                        .setAction("RETRY", v -> fetchCurrentUser(email))
+                        .setAction("RETRY", v -> fetchCurrentUser(userId.toLowerCase()))
                         .setActionTextColor(Color.YELLOW)
                         .show();
             }
         }, error -> {
-            if (error.networkResponse.statusCode==400) notifyMessage("Account with email "+email+" does not exist!");
+            if (error.networkResponse.statusCode==400) notifyMessage("Account with email "+userId+" does not exist!");
             else
                 Snackbar.make(signInImageView, error.getMessage(), Snackbar.LENGTH_INDEFINITE)
-                        .setAction("RETRY", v -> fetchCurrentUser(email))
+                        .setAction("RETRY", v -> fetchCurrentUser(userId.toLowerCase()))
                         .setActionTextColor(Color.YELLOW)
                         .show();
         });

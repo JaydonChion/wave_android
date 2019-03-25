@@ -98,7 +98,17 @@ public class GoodieBagCollectionActivity extends AppCompatActivity {
                 notifyMessage(e.getMessage());
             }
         }, error -> {
-            if (error.networkResponse.statusCode==400) notifyMessage("You are not a participant in this event!\nContact us for more information.");
+            if (error.networkResponse.statusCode==400) {
+                materialDialog = new MaterialDialog.Builder(GoodieBagCollectionActivity.this)
+                        .title(R.string.app_name)
+                        .content("You are not a participant of this event!\nContact us for more information.")
+                        .titleColorRes(android.R.color.black)
+                        .contentColorRes(R.color.colorTextDark)
+                        .positiveText("OKAY")
+                        .positiveColorRes(R.color.colorPrimary)
+                        .onAny((dialog, which) -> finish())
+                        .show();
+            }
             else notifyMessage(error.getMessage());
         });
         requestQueue.add(jsonObjectRequest);
