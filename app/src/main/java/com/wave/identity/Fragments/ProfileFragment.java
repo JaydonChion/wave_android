@@ -131,6 +131,7 @@ public class ProfileFragment extends Fragment {
         updateUser(name, phone, profilePictureUrl);
     }
 
+    /*
     @OnClick(R.id.profileChangePasswordTextView)
     public void onChangePasswordTextViewPress() {
         if (materialDialog!=null && materialDialog.isShowing()) materialDialog.dismiss();
@@ -147,6 +148,7 @@ public class ProfileFragment extends Fragment {
                 .contentColorRes(R.color.colorTextDark)
                 .show();
     }
+    */
 
     private void checkIfPasswordIsLegit(String enteredPassword) {
         if (materialDialog!=null && materialDialog.isShowing()) materialDialog.dismiss();
