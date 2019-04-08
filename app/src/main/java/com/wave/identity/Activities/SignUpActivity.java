@@ -18,7 +18,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
-import com.wave.identity.Models.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -117,22 +116,10 @@ public class SignUpActivity extends AppCompatActivity {
             userObject.put("email", email);
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, requestUrl, userObject, response -> {
-                try {
-                    String userId = response.getString("_id");
-                    String nameOnServer = response.getString("name");
-                    String authorityName = response.getString("authority_name");
-                    String authorityIssuedId = response.getString("authority_id");
-                    String emailOnServer = response.getString("email");
-                    String photo = response.getString("photo");
-                    String phone = response.getString("phone");
-                    User currentUser = new User(userId, authorityName, authorityIssuedId, nameOnServer, emailOnServer, photo, phone);
-                    Intent mainActivityIntent = new Intent(SignUpActivity.this, MainActivity.class);
-                    mainActivityIntent.putExtra("USER", currentUser);
-                    startActivity(mainActivityIntent);
+                if (response.has("_id")) {
+                    startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
                     finish();
-                } catch (JSONException e) {
-                    notifyMessage(e.getMessage());
-                }
+                } else notifyMessage("There has been an error creating your account");
             }, error -> notifyMessage(error.getMessage()));
             requestQueue.add(jsonObjectRequest);
         } catch (JSONException e) {

@@ -68,12 +68,11 @@ public class SignInActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
-    /*
+
     @OnClick(R.id.signInSignUpTextView)
     public void onSignInSignUpTextViewPress() {
         startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
     }
-    */
 
     @OnClick(R.id.signInButton)
     public void onSignInButtonPress() {
@@ -90,7 +89,24 @@ public class SignInActivity extends AppCompatActivity {
                     .contentColorRes(R.color.colorTextDark)
                     .show();
             firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-                if (task.isSuccessful()) fetchCurrentUser(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
+                if (task.isSuccessful()) {
+                    if(Objects.requireNonNull(firebaseAuth.getCurrentUser()).isEmailVerified()) {
+
+                        fetchCurrentUser(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
+
+                    }else{
+                        //Toast.makeText(getApplicationContext(),"Please verify your email",Toast.LENGTH_SHORT).show();
+                        firebaseAuth.getCurrentUser().sendEmailVerification()
+                                .addOnCompleteListener(task1 -> {
+                                    if (task1.isSuccessful()) {
+                                        notifyMessage("A email verification link has been sent to your email");
+                                    }else{
+
+                                        notifyMessage("Error, please contact us for help");
+                                    }
+                                });
+                    }
+                }
                 else notifyMessage(Objects.requireNonNull(task.getException()).getMessage());
             });
         }
