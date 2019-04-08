@@ -81,6 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <!--
         <TextView
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
@@ -90,6 +91,7 @@
             android:text="(If this is your first time using the app, your password is your student matric, change it on the profile page upon sign in)"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+         -->
 
         <Button
             android:id="@+id/signInButton"
@@ -106,7 +108,7 @@
 
 
         <LinearLayout
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="16dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.wave.identity.Activities.GoodieBagCollectionActivity;
 import com.wave.identity.Activities.HallAccessActivity;
 import com.wave.identity.Activities.HiveActivity;
 import com.wave.identity.Activities.LeeWeeNamActivity;
@@ -40,8 +39,7 @@ public class ServicesFragment extends Fragment {
     LinearLayout servicesSleepingPodBookingLayout;
     @BindView(R.id.servicesHallAccessLayout)
     LinearLayout servicesHallAccessLayout;
-    @BindView(R.id.servicesGoodieBagCollectionLayout)
-    LinearLayout servicesGoodieBagCollectionLayout;
+    //@BindView(R.id.servicesGoodieBagCollectionLayout) LinearLayout servicesGoodieBagCollectionLayout;
 
     private Unbinder unbinder;
     private View rootView;
@@ -104,11 +102,13 @@ public class ServicesFragment extends Fragment {
     }
 
 
+    /*
     @OnClick(R.id.servicesGoodieBagCollectionLayout)
     public void onGoodieBagCollectionLayoutPress() {
         Intent goodieBagIntent = new Intent(rootView.getContext(), GoodieBagCollectionActivity.class);
         goodieBagIntent.putExtra("USER", currentUser);
         startActivity(goodieBagIntent);
     }
+    */
 
 }

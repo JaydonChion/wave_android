@@ -22,8 +22,9 @@
             android:text="Available in Nanyang Technological University"
             android:textAllCaps="true"
             android:textColor="@color/colorTextLight"
-            android:textSize="10sp" />
+            android:textSize="12sp" />
 
+        <!--
         <android.support.design.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -79,6 +80,7 @@
                 </LinearLayout>
             </LinearLayout>
         </android.support.design.card.MaterialCardView>
+        -->
 
         <android.support.design.card.MaterialCardView
             android:layout_margin="8dp"
