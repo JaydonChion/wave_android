@@ -108,9 +108,12 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:layout_marginTop="16dp"
-            android:text="By joining Wave, you agree to the General Terms of Use"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
+            android:clickable="true"
+            android:onClick="openPolicyWebsite"
+            android:text="@string/termsAndConditions" />
     </LinearLayout>
 </ScrollView>

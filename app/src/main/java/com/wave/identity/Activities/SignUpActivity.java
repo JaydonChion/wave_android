@@ -1,11 +1,17 @@
 package com.wave.identity.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -22,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -52,6 +59,8 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private RequestQueue requestQueue;
     private String requestUrl;
+    private static final String SERVICE_ACTION = "android.support.customtabs.action.CustomTabsService";
+    private static final String CHROME_PACKAGE = "com.android.chrome";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,5 +140,26 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onDestroy() {
         unbinder.unbind();
         super.onDestroy();
+    }
+
+    public void openPolicyWebsite(View view){
+        if(isChromeCustomTabsSupported(getApplicationContext())){
+            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+            CustomTabsIntent customTabsIntent = builder.build();
+            customTabsIntent.launchUrl(this, Uri.parse("https://www.wavenow.co/privacypolicy"));
+        }else{
+
+            Intent viewIntent = new Intent("android.intent.action.VIEW",Uri.parse("https://www.wavenow.co/privacypolicy"));
+            startActivity(viewIntent);
+        }
+    }
+
+
+
+    private static boolean isChromeCustomTabsSupported(@NonNull final Context context) {
+        Intent serviceIntent = new Intent(SERVICE_ACTION);
+        serviceIntent.setPackage(CHROME_PACKAGE);
+        List<ResolveInfo> resolveInfos = context.getPackageManager().queryIntentServices(serviceIntent, 0);
+        return !(resolveInfos == null || resolveInfos.isEmpty());
     }
 }
